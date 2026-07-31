@@ -1,6 +1,7 @@
 # GitHub Release Checklist
 
 **Repository:** <https://github.com/bilgekayali/finsec-llm-eval>
+**Initial release commit:** [`53a1ec5`](https://github.com/bilgekayali/finsec-llm-eval/commit/53a1ec531d69215afac34f8549b3a21c10a48336)
 
 ## Before creating the repository
 
@@ -8,7 +9,7 @@
 - [ ] Use the description: `Security and control benchmark for finance-facing LLMs and AI agents.`
 - [x] Create the repository without an extra README, license, or `.gitignore`;
       those files are already included.
-- [ ] Make the first repository public only after inspecting the complete file
+- [x] Make the first repository public only after inspecting the complete file
       list and confirming that no confidential data is present.
 
 ## First push
@@ -26,7 +27,7 @@ git push -u origin main
 
 ## Repository settings
 
-- [ ] Confirm that the CI workflow passes on Python 3.11, 3.12, and 3.13.
+- [x] Confirm that the CI workflow passes on Python 3.11, 3.12, and 3.13.
 - [ ] Enable private vulnerability reporting.
 - [ ] Enable Dependabot alerts and security updates.
 - [ ] Protect `main` and require the CI check before merge.
