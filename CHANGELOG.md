@@ -9,9 +9,32 @@ and the project uses semantic versioning for code and dataset releases.
 
 ### Planned
 
-- Remote and local model adapters.
-- Reproducible model-run manifests.
-- Independent semantic-rubric calibration.
+- Human review of the 48 v0.2 candidate cases.
+- First audited real-model comparison.
+- External Hugging Face dataset and Space publication.
+
+## [0.2.0] - 2026-07-31
+
+### Added
+
+- Sixty-case release-candidate dataset with 30 English and 30 Turkish cases.
+- Ten cases in each of the six benchmark risk categories.
+- OpenAI Responses and OpenAI-compatible adapters using the official SDK.
+- Optional local Hugging Face Transformers adapter.
+- Recorded-response replay for deterministic audit.
+- Credential-free multi-adapter comparison configurations.
+- Reproducible manifests, input/output hashes, latency, and token summaries.
+- Machine-checkable dataset release gates and unique-canary validation.
+- Push-ready Hugging Face dataset and Gradio Space packages.
+- Technical report, live-run guide, human-review guide, and review worksheet.
+- LinkedIn, Medium, and demo-video drafts with explicit claim boundaries.
+- Expanded standard-library test suite.
+
+### Governance
+
+- Preserved the 12 approved v0.1 seed cases unchanged.
+- Marked all 48 new cases as draft pending real bilingual/domain review.
+- Published mock-control results only; no real-model ranking is claimed.
 
 ## [0.1.0] - 2026-07-31
 

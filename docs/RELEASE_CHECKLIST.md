@@ -1,38 +1,50 @@
-# GitHub Release Checklist
+# v0.2 Release Checklist
 
 **Repository:** <https://github.com/bilgekayali/finsec-llm-eval>
-**Initial release commit:** [`53a1ec5`](https://github.com/bilgekayali/finsec-llm-eval/commit/53a1ec531d69215afac34f8549b3a21c10a48336)
 
-## Before creating the repository
+## Code and data
 
-- [x] Use the repository name `finsec-llm-eval`.
-- [ ] Use the description: `Security and control benchmark for finance-facing LLMs and AI agents.`
-- [x] Create the repository without an extra README, license, or `.gitignore`;
-      those files are already included.
-- [x] Make the first repository public only after inspecting the complete file
-      list and confirming that no confidential data is present.
+- [x] Validate all 60 cases.
+- [x] Confirm 30 English and 30 Turkish cases.
+- [x] Confirm 10 cases per risk category.
+- [x] Confirm unique synthetic canaries.
+- [x] Confirm no live or proprietary financial data.
+- [x] Test remote adapter contracts without credentials.
+- [x] Test local and recorded adapters.
+- [x] Generate mock-control comparison reports.
+- [ ] Record human review of the 48 new cases.
+- [ ] Pass `finsec-eval validate --release-ready`.
 
-## First push
+## External model comparison
 
-From the directory containing this project:
+- [ ] Select the first model/provider and record the reason.
+- [ ] Run from an immutable source revision.
+- [ ] Preserve raw normalized outputs and report hashes.
+- [ ] Review every critical, failed, erroneous, and unresolved case.
+- [ ] Obtain second review for critical failures and disputes.
+- [ ] Audit at least 20% of remaining deterministic passes by language/category.
+- [ ] Publish limitations and conflicts with the result.
 
-```bash
-git init
-git branch -M main
-git add .
-git commit -m "Initial release: FinSec-LLM-Eval v0.1.0"
-git remote add origin https://github.com/bilgekayali/finsec-llm-eval.git
-git push -u origin main
-```
+## Hugging Face
 
-## Repository settings
+- [x] Prepare dataset card and viewer-ready JSONL.
+- [x] Prepare self-contained Gradio Space.
+- [x] Verify the Space has no credential input or outbound model call.
+- [ ] Create the maintainer-owned Hugging Face dataset repository.
+- [ ] Push `huggingface/dataset/`.
+- [ ] Create the maintainer-owned Space.
+- [ ] Push `huggingface/space/`.
+- [ ] Verify both hosted pages and replace any placeholder account paths.
 
-- [x] Confirm that the CI workflow passes on Python 3.11, 3.12, and 3.13.
+## GitHub
+
+- [ ] Set repository description:
+      `Security and control benchmark for finance-facing LLMs and AI agents.`
+- [ ] Add repository topics.
 - [ ] Enable private vulnerability reporting.
-- [ ] Enable Dependabot alerts and security updates.
-- [ ] Protect `main` and require the CI check before merge.
+- [ ] Protect `main` and require CI before merge.
 - [ ] Disable force pushes and branch deletion on `main`.
-- [ ] Add the topics listed below.
+- [ ] Create a v0.2 release only after CI and rendered-document review.
 
 Suggested topics:
 
@@ -47,19 +59,10 @@ responsible-ai
 cybersecurity
 ```
 
-## First release
+## Communications
 
-- [ ] Create tag `v0.1.0`.
-- [ ] Use the title `FinSec-LLM-Eval v0.1.0 — M2 Seed Benchmark`.
-- [ ] Attach the repository ZIP only if a separate downloadable archive is
-      useful; GitHub already provides source archives.
-- [ ] State clearly that the release contains mock results, not a public model
-      comparison.
-- [ ] Link the dataset card and seed-case review record.
-
-## After publishing
-
-- [x] Add a CI status badge using the final owner and repository name.
-- [x] Add the repository URL to `CITATION.cff` and `pyproject.toml`.
-- [ ] Review the rendered Mermaid diagram, tables, issue forms, and citation
-      panel on GitHub.
+- [x] Draft LinkedIn post.
+- [x] Draft Medium article.
+- [x] Draft demo video script.
+- [ ] Publish only claims supported by the current review status.
+- [ ] Add Hugging Face URLs only after hosted pages are verified.

@@ -5,14 +5,14 @@ type: software
 authors:
   - family-names: "Kayalı"
     given-names: "Bilge"
-version: 0.1.0
+version: 0.2.0
 date-released: "2026-07-31"
 license: Apache-2.0
 repository-code: "https://github.com/bilgekayali/finsec-llm-eval"
 url: "https://github.com/bilgekayali/finsec-llm-eval"
 abstract: >-
-  An open benchmark for evaluating security, reliability, and control
-  behavior in finance-facing large language models and AI agents.
+  A bilingual open benchmark for evaluating security, reliability, and
+  control behavior in finance-facing large language models and AI agents.
 keywords:
   - artificial intelligence security
   - financial services

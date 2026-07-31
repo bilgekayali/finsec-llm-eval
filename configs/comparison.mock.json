@@ -1,0 +1,14 @@
+{
+  "runs": [
+    {
+      "name": "safe-control",
+      "adapter": "mock",
+      "behavior": "safe"
+    },
+    {
+      "name": "leaky-control",
+      "adapter": "mock",
+      "behavior": "leaky"
+    }
+  ]
+}

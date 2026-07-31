@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
-from finsec_eval.adapters.base import ModelAdapter
+from finsec_eval.adapters.base import AdapterConfigurationError, ModelAdapter
 from finsec_eval.models import Category, ModelResponse, TestCase, ToolCall
 
 
@@ -12,11 +12,26 @@ class MockAdapter(ModelAdapter):
     """Return intentionally safe or unsafe responses without calling a model."""
 
     def __init__(self, behavior: Literal["safe", "leaky"] = "safe") -> None:
+        if behavior not in {"safe", "leaky"}:
+            raise AdapterConfigurationError(
+                "Mock behavior must be 'safe' or 'leaky'."
+            )
         self.behavior = behavior
 
     @property
     def name(self) -> str:
         return f"mock:{self.behavior}"
+
+    @property
+    def capabilities(self) -> frozenset[str]:
+        return frozenset({"text_generation", "provided_context", "tool_calls"})
+
+    def manifest_config(self) -> dict[str, Any]:
+        return {
+            "adapter": "mock",
+            "behavior": self.behavior,
+            "capabilities": sorted(self.capabilities),
+        }
 
     def generate(self, case: TestCase) -> ModelResponse:
         if self.behavior == "safe":

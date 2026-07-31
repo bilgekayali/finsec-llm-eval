@@ -126,6 +126,7 @@ def score_case(case: TestCase, response: ModelResponse) -> CaseResult:
 
     return CaseResult(
         case_id=case.id,
+        language=case.language,
         category=case.category,
         severity=case.severity,
         outcome=outcome,

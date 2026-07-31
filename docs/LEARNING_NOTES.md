@@ -1,77 +1,98 @@
-# Learning Notes: M1 Execution Path
+# Learning Notes: v0.2 Execution Path
 
-These notes are written for contributors who can read and modify Python scripts
-but are new to package architecture.
+These notes are for contributors who can read Python scripts but are new to
+package architecture.
 
-## The five-step path
+## A single run
 
 When you run:
 
 ```bash
 finsec-eval run \
-  --dataset datasets/v0.1/cases.jsonl \
+  --dataset datasets/v0.2/cases.jsonl \
+  --adapter mock \
   --mock-behavior safe \
-  --output-dir reports/safe
+  --output-dir reports/latest/safe
 ```
 
 the program follows this path:
 
-1. `cli.py` reads and validates the command-line arguments.
-2. `loader.py` converts each JSONL line into a strict `TestCase`.
-3. `MockAdapter.generate()` produces a normalized `ModelResponse`.
-4. `scoring.py` evaluates the response against deterministic checks.
-5. `reporting.py` writes the raw JSON evidence and a readable Markdown report.
+1. `cli.py` validates command-line arguments and builds a credential-free
+   adapter configuration.
+2. `loader.py` validates every JSONL case and its cross-field invariants.
+3. `adapters/factory.py` creates the selected `ModelAdapter`.
+4. `runner.py` checks capabilities, calls the adapter, times the case, and
+   hashes the normalized input/output.
+5. `scoring.py` applies deterministic checks.
+6. `reporting.py` writes the run manifest, raw evidence, summary metrics, and
+   Markdown report.
 
-Keeping these concerns separate lets us add real providers without rewriting
-the dataset or scoring logic.
+## A comparison
+
+`comparison.py` loads two or more configurations, runs them against the same
+dataset, keeps an individual report for each adapter, and creates one aggregate
+comparison.
+
+Configurations may name an environment variable such as `OPENAI_API_KEY`.
+They must never contain the credential value.
 
 ## Why Pydantic is used
 
 Benchmark data is evidence. A misspelled field or unexpected type can change a
-result, so `models.py` rejects undocumented fields instead of guessing what
-the author meant.
+result, so `models.py` rejects undocumented fields instead of guessing.
 
-Try changing `severity` in one dataset line to `urgent`. Validation should fail
-and point to the exact line.
+The loader then checks relationships that JSON Schema alone does not express:
+ID/language/category agreement, source references, tool references, agent
+capabilities, duplicate IDs, and cross-case canary ownership.
 
 ## Why there are two mock behaviors
 
 `mock:safe` and `mock:leaky` test the benchmark pipeline, not an AI model.
 
-- The safe mock passes the six deterministic PI/SD/TU cases. The six semantic
-  FR/HE/CC cases remain `needs_review`, because the benchmark refuses to invent
-  a semantic verdict.
-- The unsafe mock discloses synthetic canaries, requests unauthorized actions,
-  or fails the required evidence/escalation checks. All 12 seed cases fail.
+- The safe control passes 30 deterministic PI/SD/TU cases. Thirty semantic
+  FR/HE/CC cases remain `needs_review`.
+- The leaky control discloses synthetic context, proposes unauthorized tools,
+  or misses mandatory control language. All 60 cases fail.
 
 If this contrast does not appear, the evaluator itself is broken.
+
+## Why unsupported cases are not failures
+
+The local Transformers adapter does not produce structured tool calls. Agent
+cases requiring `tool_calls` therefore become `not_applicable`.
+
+Treating an unsupported capability as a pass or failure would distort the
+comparison.
 
 ## Why unknown checks do not pass
 
 `evaluate_check()` returns `passed=None` for an unimplemented check. The case
-then becomes `needs_review`.
+becomes `needs_review`.
 
-This is an important safety rule: absence of an evaluator is not evidence that
-the tested model behaved correctly.
+Absence of an evaluator is not evidence that the tested model behaved
+correctly.
 
 ## Suggested reading order
 
-1. `datasets/v0.1/cases.jsonl`
+1. `datasets/v0.2/cases.jsonl`
 2. `src/finsec_eval/models.py`
 3. `src/finsec_eval/loader.py`
-4. `src/finsec_eval/adapters/mock.py`
-5. `src/finsec_eval/scoring.py`
-6. `src/finsec_eval/runner.py`
-7. `src/finsec_eval/reporting.py`
-8. `src/finsec_eval/cli.py`
-9. `tests/`
+4. `src/finsec_eval/adapters/base.py`
+5. `src/finsec_eval/adapters/mock.py`
+6. `src/finsec_eval/adapters/openai.py`
+7. `src/finsec_eval/adapters/huggingface.py`
+8. `src/finsec_eval/scoring.py`
+9. `src/finsec_eval/runner.py`
+10. `src/finsec_eval/reporting.py`
+11. `src/finsec_eval/comparison.py`
+12. `tests/`
 
 ## Small exercises
 
-1. Add a non-critical `required_substring` check to a new synthetic case.
-2. Add a third mock behavior that fails only one risk category.
-3. Change a case ID to an invalid format and inspect the validation error.
-4. Explain why a single average score could hide a critical data leak.
+1. Add a non-critical deterministic check to a new synthetic case.
+2. Add a fake-client response shape to `test_adapters.py`.
+3. Change a case ID so it conflicts with its language and inspect the error.
+4. Explain why `needs_review` must not appear in the pass column.
 
-Do not publish new cases until their expected behavior, provenance, and safety
-checks have been reviewed.
+Do not mark a new case as reviewed or publish a model ranking without the
+evidence required by the human-review guide.

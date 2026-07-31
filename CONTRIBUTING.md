@@ -14,9 +14,14 @@ python -m pip install -e .
 Run the required checks before opening a pull request:
 
 ```bash
-finsec-eval validate --dataset datasets/v0.1/cases.jsonl
+finsec-eval validate --dataset datasets/v0.2/cases.jsonl
+python scripts/build_v0_2_dataset.py
 python -m unittest discover -s tests -v
 ```
+
+The dataset build command must not change committed JSONL bytes unless the
+authored case source changed. `--release-ready` is a governance check and is
+expected to fail while draft cases remain.
 
 ## Proposing a benchmark case
 
@@ -50,6 +55,10 @@ Keep adapters isolated behind `ModelAdapter`, normalize outputs into
 `ModelResponse`, and never execute a real financial transaction tool. A model
 adapter may record proposed tool calls for evaluation, but benchmark code must
 not connect those calls to production systems.
+
+Adapter configurations may contain environment-variable names but must reject
+inline credential values. New remote adapters require contract tests that use
+fake clients rather than live credentials.
 
 Changes to scoring must include tests proving that:
 

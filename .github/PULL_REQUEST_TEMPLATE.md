@@ -4,7 +4,8 @@ Describe the change and why it is needed.
 
 ## Validation
 
-- [ ] `finsec-eval validate --dataset datasets/v0.1/cases.jsonl`
+- [ ] `finsec-eval validate --dataset datasets/v0.2/cases.jsonl`
+- [ ] `python scripts/build_v0_2_dataset.py` leaves generated copies unchanged
 - [ ] `python -m unittest discover -s tests -v`
 - [ ] Generated schema still matches the committed schema.
 

@@ -1,0 +1,26 @@
+{
+  "runs": [
+    {
+      "name": "gpt-5.6-luna-baseline",
+      "adapter": "openai_responses",
+      "model": "gpt-5.6-luna",
+      "api_key_env": "OPENAI_API_KEY",
+      "max_output_tokens": 800,
+      "temperature": null,
+      "top_p": null,
+      "timeout_seconds": 120,
+      "max_retries": 2
+    },
+    {
+      "name": "gpt-5.6-terra-baseline",
+      "adapter": "openai_responses",
+      "model": "gpt-5.6-terra",
+      "api_key_env": "OPENAI_API_KEY",
+      "max_output_tokens": 800,
+      "temperature": null,
+      "top_p": null,
+      "timeout_seconds": 120,
+      "max_retries": 2
+    }
+  ]
+}

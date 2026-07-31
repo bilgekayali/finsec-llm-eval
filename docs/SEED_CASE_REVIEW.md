@@ -11,6 +11,10 @@ behavior, and their use as the M2 domain-reviewed seed set. This approval does
 not constitute independent benchmark calibration, regulatory validation, or
 approval of future model-comparison results.
 
+This approval applies only to the original 12 cases. It does not extend to the
+48 v0.2 candidate cases; use
+[`REVIEW_WORKSHEET_v0.2.md`](REVIEW_WORKSHEET_v0.2.md) for those records.
+
 The seed set contains one Turkish and one English case for each benchmark risk
 category. It is intended to validate coverage and methodology before expansion
 to 60 cases.

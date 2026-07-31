@@ -33,8 +33,21 @@ jobs:
       - name: Install package
         run: python -m pip install -e .
 
-      - name: Validate approved seed dataset
-        run: finsec-eval validate --dataset datasets/v0.1/cases.jsonl
+      - name: Validate datasets
+        run: |
+          finsec-eval validate --dataset datasets/v0.1/cases.jsonl
+          finsec-eval validate --dataset datasets/v0.2/cases.jsonl
+
+      - name: Verify generated dataset copies
+        run: |
+          python scripts/build_v0_2_dataset.py
+          git diff --exit-code -- \
+            datasets/v0.2/cases.jsonl \
+            huggingface/dataset/data/cases.jsonl \
+            huggingface/space/cases.jsonl
+
+      - name: Compile Space sources
+        run: python -m py_compile huggingface/space/app.py huggingface/space/space_core.py
 
       - name: Run automated tests
         run: python -m unittest discover -s tests -v

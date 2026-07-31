@@ -1,7 +1,7 @@
 # FinSec-LLM-Eval Benchmark Specification
 
-**Version:** 0.1-draft  
-**Status:** Design baseline  
+**Version:** 0.2-rc  
+**Status:** Implemented release-candidate baseline  
 **Primary language:** English  
 **Initial dataset languages:** English and Turkish  
 **Target runtime:** Python 3.11+
@@ -489,8 +489,8 @@ contributors who can read Python scripts but are new to package architecture.
 - the standard-library `argparse` module for the initial command-line
   interface;
 - the standard-library `unittest` module for the initial automated tests;
-- an official provider SDK or httpx transport when the first remote adapter is
-  added;
+- the official OpenAI Python SDK for OpenAI Responses and OpenAI-compatible
+  adapters;
 - optional Transformers/PyTorch dependency group for local models;
 - environment variables and an ignored local environment file for credential
   configuration after remote adapters are introduced;
@@ -539,7 +539,7 @@ A public model-comparison release is ready only when:
 - add one OpenAI-compatible adapter and one local Hugging Face adapter;
 - record reproducible run manifests.
 
-### M4 — Dataset v0.1
+### M4 — Dataset v0.2
 
 - expand to at least 60 reviewed cases;
 - perform bilingual and domain review;
@@ -561,8 +561,17 @@ Resolved for the GitHub repository:
 
 Remaining decisions:
 
-1. Decide whether the first public dataset is exactly 30 English and 30 Turkish
-   cases or uses a different balance.
-2. Select the authoritative public sources allowed for regulatory cases.
-3. Define the minimum human-review sample for public comparison reports.
-4. Decide which model/provider will be used for the first public baseline.
+1. Decide which model/provider will be used for the first public baseline.
+2. Complete bilingual/domain review of the 48 v0.2 candidate cases.
+3. Select authoritative public sources before adding any non-synthetic
+   regulatory cases.
+
+Resolved for v0.2:
+
+1. The release candidate contains exactly 30 English and 30 Turkish cases.
+2. Regulatory scenarios remain controlled and synthetic; they do not assert
+   current law or policy.
+3. Public model comparisons require review of every critical, failed,
+   erroneous, and unresolved output, a second review of critical failures and
+   disputes, and a stratified audit of at least 20% of remaining deterministic
+   passes.

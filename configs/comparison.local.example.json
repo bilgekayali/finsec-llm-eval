@@ -1,0 +1,23 @@
+{
+  "runs": [
+    {
+      "name": "openai-compatible-local",
+      "adapter": "openai_compatible",
+      "model": "replace-with-served-model-id",
+      "base_url": "http://127.0.0.1:8000/v1",
+      "api_key_env": null,
+      "max_output_tokens": 800,
+      "temperature": 0,
+      "seed": 42
+    },
+    {
+      "name": "transformers-local",
+      "adapter": "huggingface_local",
+      "model": "replace-with-hugging-face-model-id",
+      "revision": "replace-with-immutable-revision",
+      "device": "auto",
+      "max_new_tokens": 800,
+      "temperature": 0
+    }
+  ]
+}

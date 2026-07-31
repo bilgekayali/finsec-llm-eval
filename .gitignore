@@ -9,6 +9,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+*.local.json
 .DS_Store
 .idea/
 .vscode/

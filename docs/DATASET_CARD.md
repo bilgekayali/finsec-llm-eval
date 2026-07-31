@@ -2,103 +2,94 @@
 
 ## Dataset summary
 
-FinSec-LLM-Eval v0.1.0 is a small, synthetic seed set for evaluating the
-security and control behavior of finance-facing language models and agents.
-It contains 12 cases: one English and one Turkish case in each of six risk
-categories.
+FinSec-LLM-Eval v0.2.0-rc is a synthetic benchmark for evaluating security and
+control behavior in finance-facing language models and agents.
 
 | Property | Value |
 |---|---|
-| Release | 0.1.0 |
-| Cases | 12 |
-| Languages | English, Turkish |
+| Release | 0.2.0 release candidate |
+| Cases | 60 |
+| Languages | 30 English, 30 Turkish |
 | Domain | Investment banking and capital markets |
-| Data format | JSON Lines |
+| Data format | UTF-8 JSON Lines |
 | Source type | Original synthetic scenarios |
-| Case review | Project-owner approved on 2026-07-31 |
+| Review status | 12 approved, 48 draft |
 | Dataset license | CC BY 4.0 |
 
 ## Category distribution
 
 | Category | Code | Cases |
 |---|---|---:|
-| Prompt injection | PI | 2 |
-| Sensitive data | SD | 2 |
-| Tool authorization | TU | 2 |
-| Financial and regulatory factuality | FR | 2 |
-| Human escalation | HE | 2 |
-| Citation and confidence calibration | CC | 2 |
+| Prompt injection | PI | 10 |
+| Sensitive data | SD | 10 |
+| Tool authorization | TU | 10 |
+| Financial and regulatory factuality | FR | 10 |
+| Human escalation | HE | 10 |
+| Citation and confidence calibration | CC | 10 |
 
-Six cases are marked `critical` and six are marked `high` severity.
+Severity distribution is 34 critical, 22 high, and 4 medium cases. Mode
+distribution is 32 RAG, 18 agent, and 10 chat cases.
 
 ## Data fields
 
-Each JSONL record contains:
+Each record contains stable identity, language, category, mode, severity,
+synthetic setup context, optional mock tools, messages, expected behavior,
+deterministic checks, semantic rubric, and provenance.
 
-- stable case identity, version, language, category, mode, and severity;
-- synthetic setup context and optional mock tool definitions;
-- user and system messages;
-- expected required and forbidden behaviors;
-- deterministic checks and optional semantic-rubric dimensions;
-- provenance, license, and review metadata.
-
-The formal contract is available in
+The formal contract is
 [`schemas/test-case.schema.json`](../schemas/test-case.schema.json).
+Cross-field invariants and unique-canary ownership are enforced by the Python
+loader.
 
 ## Intended uses
 
-The seed set is suitable for:
-
-- developing and testing evaluation pipelines;
-- demonstrating critical-failure-aware reporting;
-- teaching LLM security and assurance concepts;
-- comparing adapter behavior during controlled development;
-- collecting reviewer feedback before the benchmark is expanded.
+- evaluation-pipeline and adapter development;
+- controlled LLM security research;
+- human-review calibration;
+- finance-sector assurance exercises;
+- teaching prompt injection, data protection, authorization, escalation, and
+  evidence discipline.
 
 ## Out-of-scope uses
 
-Do not use v0.1.0 as:
+Do not use this release candidate as:
 
 - proof of regulatory compliance;
-- certification of a model, agent, vendor, or financial institution;
-- a statistically representative model leaderboard;
-- a substitute for legal, compliance, risk, or security review;
-- authorization to connect an agent to a production financial tool.
+- certification of a model, agent, vendor, or institution;
+- a production-safety statement;
+- investment, legal, tax, or regulatory advice;
+- permission to connect an agent to a live financial tool;
+- a public model leaderboard before review gates are complete.
 
-## Data creation
+## Creation and safety
 
-All scenarios are original and synthetic. Names, issuers, transactions,
-policies, values, canaries, and tool calls are fictional. No production logs,
-customer data, employer material, or confidential testing prompts were used.
+All scenarios are original and synthetic. Names, accounts, issuers,
+transactions, policies, documents, and canaries are fictional. No production
+logs, customer data, employer material, or confidential prompts were used.
 
-The scenarios were designed to make severe failures observable through exact
-canary checks, forbidden-value checks, and tool-call allowlists where possible.
-Cases requiring semantic judgment remain unresolved until reviewed.
+Synthetic secrets use unique `FINSEC_CANARY_` values. Agent tools are mock
+definitions only; the benchmark never executes a transaction or side effect.
 
 ## Review and governance
 
-The project owner approved the scenario realism and expected control behavior
-for all 12 M2 cases on 2026-07-31. Independent reviewer calibration has not yet
-been completed. Model outputs and comparison reports require their own review;
-dataset approval does not transfer to later results.
+The 12 v0.1 seed cases were project-owner approved on 2026-07-31. The 48 added
+v0.2 cases remain `draft` until bilingual domain review is recorded. Dataset
+approval does not approve later model outputs.
 
-Contributed cases move through `draft`, `reviewed`, and `approved` states.
-Every release must preserve provenance and review metadata.
+Public model results also require manual adjudication, independent review of
+critical failures and disputes, and a stratified audit of deterministic passes.
 
 ## Known limitations
 
-- Twelve cases are too few for broad ranking claims.
-- The sector coverage is limited to investment-banking and capital-markets
-  examples.
-- English and Turkish coverage is balanced by count, not by independent
-  linguistic difficulty calibration.
-- Semantic rubrics have not been calibrated across multiple reviewers.
-- No real-model baseline is included in M2.
-- Current deterministic checks emphasize visible failure evidence and do not
-  cover every indirect disclosure or misleading answer.
+- New cases are not yet human-approved.
+- English and Turkish counts are balanced, but difficulty is not calibrated.
+- Sector coverage emphasizes investment banking and capital markets.
+- Semantic rubrics require human judgment.
+- Exact-string checks cannot detect every paraphrased failure.
+- No real-model result is included.
 
 ## Licensing and citation
 
 The dataset is released under CC BY 4.0. See
-[`DATA_LICENSE.md`](../DATA_LICENSE.md) for attribution guidance and
-[`CITATION.cff`](../CITATION.cff) for project citation metadata.
+[`DATA_LICENSE.md`](../DATA_LICENSE.md) and
+[`CITATION.cff`](../CITATION.cff).

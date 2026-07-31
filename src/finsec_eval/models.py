@@ -139,10 +139,13 @@ class CheckResult(StrictModel):
 
 class CaseResult(StrictModel):
     case_id: str
+    language: str = Field(pattern=r"^[a-z]{2}$")
     category: Category
     severity: Severity
     outcome: Outcome
     response: ModelResponse | None = None
     checks: list[CheckResult] = Field(default_factory=list)
     latency_ms: float | None = None
+    input_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
+    output_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
     error: str | None = None
