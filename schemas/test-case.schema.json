@@ -1,0 +1,394 @@
+{
+  "$defs": {
+    "Category": {
+      "enum": [
+        "prompt_injection",
+        "sensitive_data",
+        "tool_authorization",
+        "financial_regulatory_factuality",
+        "human_escalation",
+        "confidence_citation"
+      ],
+      "title": "Category",
+      "type": "string"
+    },
+    "CheckSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "minLength": 1,
+          "title": "Type",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "critical": {
+          "default": false,
+          "title": "Critical",
+          "type": "boolean"
+        },
+        "case_sensitive": {
+          "default": true,
+          "title": "Case Sensitive",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "CheckSpec",
+      "type": "object"
+    },
+    "ExpectedBehavior": {
+      "additionalProperties": false,
+      "properties": {
+        "required_behaviors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Behaviors",
+          "type": "array"
+        },
+        "forbidden_behaviors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Behaviors",
+          "type": "array"
+        },
+        "should_escalate": {
+          "default": false,
+          "title": "Should Escalate",
+          "type": "boolean"
+        },
+        "allowed_tools": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Tools",
+          "type": "array"
+        },
+        "required_source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Source Ids",
+          "type": "array"
+        }
+      },
+      "title": "ExpectedBehavior",
+      "type": "object"
+    },
+    "Message": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "pattern": "^(system|user|assistant|tool)$",
+          "title": "Role",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "content"
+      ],
+      "title": "Message",
+      "type": "object"
+    },
+    "Mode": {
+      "enum": [
+        "chat",
+        "rag",
+        "agent"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "source_type": {
+          "minLength": 1,
+          "title": "Source Type",
+          "type": "string"
+        },
+        "source_urls": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Urls",
+          "type": "array"
+        },
+        "license": {
+          "minLength": 1,
+          "title": "License",
+          "type": "string"
+        },
+        "author": {
+          "minLength": 1,
+          "title": "Author",
+          "type": "string"
+        },
+        "review_status": {
+          "pattern": "^(draft|reviewed|approved)$",
+          "title": "Review Status",
+          "type": "string"
+        },
+        "last_reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Reviewed At"
+        }
+      },
+      "required": [
+        "source_type",
+        "license",
+        "author",
+        "review_status"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Rubric": {
+      "additionalProperties": false,
+      "properties": {
+        "dimensions": {
+          "items": {
+            "$ref": "#/$defs/RubricDimension"
+          },
+          "title": "Dimensions",
+          "type": "array"
+        }
+      },
+      "title": "Rubric",
+      "type": "object"
+    },
+    "RubricDimension": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "weight": {
+          "default": 1.0,
+          "exclusiveMinimum": 0,
+          "title": "Weight",
+          "type": "number"
+        },
+        "criteria": {
+          "minLength": 1,
+          "title": "Criteria",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "criteria"
+      ],
+      "title": "RubricDimension",
+      "type": "object"
+    },
+    "Setup": {
+      "additionalProperties": false,
+      "properties": {
+        "system_prompt": {
+          "title": "System Prompt",
+          "type": "string"
+        },
+        "context": {
+          "items": {
+            "$ref": "#/$defs/SourceDocument"
+          },
+          "title": "Context",
+          "type": "array"
+        },
+        "tools": {
+          "items": {
+            "$ref": "#/$defs/ToolSpec"
+          },
+          "title": "Tools",
+          "type": "array"
+        }
+      },
+      "required": [
+        "system_prompt"
+      ],
+      "title": "Setup",
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "SourceDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "content"
+      ],
+      "title": "SourceDocument",
+      "type": "object"
+    },
+    "ToolSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ToolSpec",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[A-Z]{2}-[A-Z]{2}-\\d{3}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "title": "Version",
+      "type": "string"
+    },
+    "title": {
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "language": {
+      "pattern": "^[a-z]{2}$",
+      "title": "Language",
+      "type": "string"
+    },
+    "category": {
+      "$ref": "#/$defs/Category"
+    },
+    "mode": {
+      "$ref": "#/$defs/Mode"
+    },
+    "severity": {
+      "$ref": "#/$defs/Severity"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "required_capabilities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Capabilities",
+      "type": "array"
+    },
+    "setup": {
+      "$ref": "#/$defs/Setup"
+    },
+    "messages": {
+      "items": {
+        "$ref": "#/$defs/Message"
+      },
+      "minItems": 1,
+      "title": "Messages",
+      "type": "array"
+    },
+    "expected": {
+      "$ref": "#/$defs/ExpectedBehavior"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/$defs/CheckSpec"
+      },
+      "title": "Checks",
+      "type": "array"
+    },
+    "rubric": {
+      "$ref": "#/$defs/Rubric"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "required": [
+    "id",
+    "version",
+    "title",
+    "language",
+    "category",
+    "mode",
+    "severity",
+    "setup",
+    "messages",
+    "expected",
+    "provenance"
+  ],
+  "title": "TestCase",
+  "type": "object"
+}

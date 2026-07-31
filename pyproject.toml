@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finsec-llm-eval"
+version = "0.1.0"
+description = "Security and reliability benchmark for finance-facing LLMs and AI agents"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Bilge Kayalı" },
+]
+license = { file = "LICENSE" }
+keywords = [
+  "ai-security",
+  "benchmark",
+  "financial-services",
+  "large-language-models",
+  "llm-evaluation",
+  "responsible-ai",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+]
+dependencies = [
+  "pydantic>=2.8,<3",
+]
+
+[project.urls]
+Homepage = "https://github.com/bilgekayali/finsec-llm-eval"
+Repository = "https://github.com/bilgekayali/finsec-llm-eval"
+Issues = "https://github.com/bilgekayali/finsec-llm-eval/issues"
+
+[project.scripts]
+finsec-eval = "finsec_eval.cli:entrypoint"
+
+[tool.setuptools.packages.find]
+where = ["src"]

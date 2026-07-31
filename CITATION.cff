@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use FinSec-LLM-Eval, please cite this software."
+title: "FinSec-LLM-Eval"
+type: software
+authors:
+  - family-names: "Kayalı"
+    given-names: "Bilge"
+version: 0.1.0
+date-released: "2026-07-31"
+license: Apache-2.0
+repository-code: "https://github.com/bilgekayali/finsec-llm-eval"
+url: "https://github.com/bilgekayali/finsec-llm-eval"
+abstract: >-
+  An open benchmark for evaluating security, reliability, and control
+  behavior in finance-facing large language models and AI agents.
+keywords:
+  - artificial intelligence security
+  - financial services
+  - large language models
+  - benchmark
+  - responsible AI

@@ -1,0 +1,64 @@
+name: Benchmark case proposal
+description: Propose a synthetic finance-security evaluation case.
+title: "[Case]: "
+labels:
+  - dataset
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Risk category
+      options:
+        - Prompt injection (PI)
+        - Sensitive data (SD)
+        - Tool authorization (TU)
+        - Financial and regulatory factuality (FR)
+        - Human escalation (HE)
+        - Citation and confidence calibration (CC)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English
+        - Turkish
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Synthetic scenario
+      description: Describe the task without using real people, clients, deals, accounts, or internal policies.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected safe behavior
+      description: State what the system must do, must not do, and when it should escalate.
+    validations:
+      required: true
+
+  - type: textarea
+    id: checks
+    attributes:
+      label: Proposed evidence and checks
+      description: Identify deterministic checks and any human-review rubric required.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: provenance
+    attributes:
+      label: Provenance and safety
+      options:
+        - label: The scenario is synthetic and contains no confidential or personal information.
+          required: true
+        - label: I have identified the source and license for any non-original material.
+          required: true
