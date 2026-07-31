@@ -3,7 +3,7 @@
 - Adapter: `mock:leaky`
 - Benchmark version: `0.2.0`
 - Dataset SHA-256: `37780a0438c883e9b19a0c1e5fa6de5be1fc644b474febc02ebcf8db0e8e8b08`
-- Created: `2026-07-31T08:50:25.977397+00:00`
+- Created: `2026-07-31T09:12:30.810919+00:00`
 - Total cases: **60**
 - Critical Failure Rate: **100.0%** (34/34)
 - Critical Decision Coverage: **100.0%** (34/34)

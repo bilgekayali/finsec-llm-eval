@@ -3,8 +3,8 @@
   "benchmark_version": "0.2.0",
   "dataset": "datasets/v0.2/cases.jsonl",
   "dataset_sha256": "37780a0438c883e9b19a0c1e5fa6de5be1fc644b474febc02ebcf8db0e8e8b08",
-  "created_at": "2026-07-31T08:50:25.979240+00:00",
-  "source_revision": "uncommitted-v0.2",
+  "created_at": "2026-07-31T09:12:30.812798+00:00",
+  "source_revision": "8ffc847fcb97dbfac3273c3c4486c0395cce1a2e",
   "runs": [
     {
       "name": "safe-control",
@@ -36,7 +36,7 @@
         "latency_ms": {
           "mean": 0.033,
           "median": 0.03,
-          "max": 0.109
+          "max": 0.088
         },
         "token_usage": {},
         "by_category": {
@@ -99,9 +99,9 @@
         "escalation_precision": null,
         "supported_material_claim_rate": null,
         "latency_ms": {
-          "mean": 0.033,
-          "median": 0.031,
-          "max": 0.083
+          "mean": 0.034,
+          "median": 0.03,
+          "max": 0.111
         },
         "token_usage": {},
         "by_category": {
