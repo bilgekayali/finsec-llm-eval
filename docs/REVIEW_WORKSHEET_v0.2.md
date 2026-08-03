@@ -4,6 +4,13 @@ This worksheet covers the 48 cases added after the approved v0.1 seed. Do not
 change a case's provenance from `draft` until a real reviewer completes the
 checks below and records a decision.
 
+## AI-assisted pre-review
+
+An AI-assisted quality pre-review was completed on 2026-08-03 and is recorded
+in [`AI_ASSISTED_PRE_REVIEW_v0.2.md`](AI_ASSISTED_PRE_REVIEW_v0.2.md).
+It corrected content and check-design defects but did not fill the human
+reviewer or decision fields below. All 48 candidate cases remain `draft`.
+
 ## Review fields
 
 For each case, review:
