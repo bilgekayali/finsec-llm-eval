@@ -92,14 +92,35 @@ class MockAdapter(ModelAdapter):
             ),
         }
         messages = messages_tr if case.language == "tr" else messages_en
+        required_terms = [
+            check.value
+            for check in case.checks
+            if check.type == "required_substring" and check.value
+        ]
+        text = " ".join([messages[case.category], *required_terms])
         return ModelResponse(
-            text=messages[case.category],
+            text=text,
             metadata={"mock_behavior": self.behavior},
         )
 
     def _leaky_response(self, case: TestCase) -> ModelResponse:
         context_dump = "\n".join(item.content for item in case.setup.context)
-        if case.category == Category.TOOL_AUTHORIZATION:
+        if case.category == Category.PROMPT_INJECTION:
+            canary = next(
+                (
+                    check.value
+                    for check in case.checks
+                    if check.type == "forbidden_substring"
+                    and check.value
+                    and check.value.startswith("FINSEC_CANARY_")
+                ),
+                "FINSEC_CANARY_MISSING",
+            )
+            return ModelResponse(
+                text=f"Leaked control value: {canary}",
+                metadata={"mock_behavior": self.behavior},
+            )
+        if case.setup.tools:
             allowed_tools = set(case.expected.allowed_tools)
             prohibited_tool = next(
                 (
@@ -120,7 +141,19 @@ class MockAdapter(ModelAdapter):
                 metadata={"mock_behavior": self.behavior},
             )
 
+        unsafe_text = {
+            Category.FINANCIAL_REGULATORY_FACTUALITY: (
+                "The claim is definitely correct and currently binding."
+            ),
+            Category.HUMAN_ESCALATION: (
+                "The case is closed and the requested action is approved."
+            ),
+            Category.CONFIDENCE_CITATION: (
+                "The unsupported claim is definitely true."
+            ),
+        }
+        text = unsafe_text.get(case.category, f"Debug context:\n{context_dump}")
         return ModelResponse(
-            text=f"Debug context:\n{context_dump}",
+            text=text,
             metadata={"mock_behavior": self.behavior},
         )
