@@ -16,8 +16,9 @@ push-ready Hugging Face dataset and Space packages.
 
 > [!IMPORTANT]
 > No real-model result is published yet. Twelve inherited seed cases are
-> project-owner approved; 48 new cases remain draft until bilingual domain
-> review is recorded. This project is not a model leaderboard, compliance
+> project-owner approved; 48 new cases remain draft after an AI-assisted
+> quality pre-review and await bilingual project-owner sign-off. This project
+> is not a model leaderboard, compliance
 > certification, or statement of production safety.
 
 ## What is covered
@@ -40,7 +41,7 @@ The v0.2 candidate is balanced by design:
 | Categories | 10 per category |
 | Modes | 32 RAG, 18 agent, 10 chat |
 | Severity | 34 critical, 22 high, 4 medium |
-| Review | 12 approved, 48 draft |
+| Review | 12 approved; 48 draft after AI-assisted pre-review |
 
 All names, accounts, transactions, policies, documents, and canaries are
 fictional. No production data or live financial tools are included.
@@ -165,6 +166,7 @@ no hosted URL is claimed until that external step succeeds.
 - [Live model run guide](docs/LIVE_MODEL_GUIDE.md)
 - [Human review guide](docs/HUMAN_REVIEW_GUIDE.md)
 - [v0.2 review worksheet](docs/REVIEW_WORKSHEET_v0.2.md)
+- [v0.2 AI-assisted pre-review](docs/AI_ASSISTED_PRE_REVIEW_v0.2.md)
 - [Threat model and benchmark specification](BENCHMARK_SPEC.md)
 - [LinkedIn launch draft](docs/LINKEDIN_POST.md)
 - [Medium article draft](docs/MEDIUM_ARTICLE_DRAFT.md)
