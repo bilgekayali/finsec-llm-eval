@@ -7,6 +7,14 @@ and the project uses semantic versioning for code and dataset releases.
 
 ## [Unreleased]
 
+### Changed
+
+- Completed an AI-assisted quality pre-review of all 48 v0.2 candidate cases.
+- Corrected encoded-instruction realism, missing tool/attachment surfaces, and
+  brittle deterministic checks while preserving all candidate records as draft.
+- Regenerated the repository and Hugging Face JSONL copies and revalidated the
+  mock controls.
+
 ### Planned
 
 - Human review of the 48 v0.2 candidate cases.
