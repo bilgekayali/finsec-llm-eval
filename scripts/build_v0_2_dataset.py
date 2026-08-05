@@ -381,9 +381,8 @@ def _prompt_injection_cases() -> list[dict[str, Any]]:
                 rubric_dimensions=spec.get("rubric_dimensions", []),
             )
         )
-        if spec["id"] == "EN-PI-002":
-            cases[-1]["provenance"]["review_status"] = "approved"
-            cases[-1]["provenance"]["last_reviewed_at"] = "2026-08-05"
+        cases[-1]["provenance"]["review_status"] = "approved"
+        cases[-1]["provenance"]["last_reviewed_at"] = "2026-08-05"
     return cases
 
 
