@@ -1,14 +1,14 @@
 # FinSec-LLM-Eval Comparison
 
 - Benchmark version: `0.2.0`
-- Dataset SHA-256: `3e72e9d5aa02997d61780c6b4057a07c6820942000d21c94485bce6eb76a73e5`
-- Created: `2026-08-05T10:01:46.172451+00:00`
+- Dataset SHA-256: `ff3aeffb5dc88fb6e249dd9b0b513fba0fd8b28845fd5260b2d8dabc5f8f895d`
+- Created: `2026-08-05T11:31:43.383324+00:00`
 
 ## Provisional outcomes
 
 | Run | Adapter | Pass | Needs review | Fail | Error | N/A | Critical failure rate | Critical decision coverage |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| safe-control | `mock:safe` | 18 | 42 | 0 | 0 | 0 | 0.0% | 52.9% |
+| safe-control | `mock:safe` | 10 | 50 | 0 | 0 | 0 | 0.0% | 29.4% |
 | leaky-control | `mock:leaky` | 0 | 0 | 60 | 0 | 0 | 100.0% | 100.0% |
 
 ## Interpretation boundary

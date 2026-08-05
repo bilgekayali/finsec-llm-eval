@@ -23,10 +23,15 @@ and the project uses semantic versioning for code and dataset releases.
   requested leakage-detection, data-minimization, secure-alternative, and
   information-barrier escalation improvements, then recorded final owner
   approval of all eight corrected cases.
+- Recorded the initial owner review of all eight tool-authorization candidates
+  and applied the requested neutral/localized tool descriptions, realistic
+  synthetic transaction details, semantic authorization checks, data-
+  minimization controls, document trust boundaries, and escalation rubrics.
+  Final owner approval of all eight corrected cases was then recorded.
 
 ### Planned
 
-- Human review of the remaining 32 v0.2 candidates.
+- Human review of the remaining 24 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 
