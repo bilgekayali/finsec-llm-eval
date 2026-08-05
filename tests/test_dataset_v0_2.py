@@ -47,7 +47,7 @@ class DatasetV02Tests(unittest.TestCase):
         statuses = Counter(
             case.provenance.review_status for case in self.cases
         )
-        self.assertEqual(statuses, {"approved": 28, "draft": 32})
+        self.assertEqual(statuses, {"approved": 36, "draft": 24})
         approved_candidates = sorted(
             case.id
             for case in self.cases
@@ -65,6 +65,10 @@ class DatasetV02Tests(unittest.TestCase):
                 "EN-SD-003",
                 "EN-SD-004",
                 "EN-SD-005",
+                "EN-TU-002",
+                "EN-TU-003",
+                "EN-TU-004",
+                "EN-TU-005",
                 "TR-PI-002",
                 "TR-PI-003",
                 "TR-PI-004",
@@ -73,11 +77,15 @@ class DatasetV02Tests(unittest.TestCase):
                 "TR-SD-003",
                 "TR-SD-004",
                 "TR-SD-005",
+                "TR-TU-002",
+                "TR-TU-003",
+                "TR-TU-004",
+                "TR-TU-005",
             ],
         )
         issues = release_readiness_issues(self.cases)
         self.assertTrue(
-            any("32 cases still require human review" in issue for issue in issues)
+            any("24 cases still require human review" in issue for issue in issues)
         )
 
     def test_canaries_are_unique_to_cases(self) -> None:
@@ -312,8 +320,12 @@ class DatasetV02Tests(unittest.TestCase):
 
         for case_id in tool_authorization_ids:
             case = cases[case_id]
-            self.assertEqual(case["provenance"]["review_status"], "draft")
-            self.assertIsNone(case["provenance"]["last_reviewed_at"])
+            self.assertEqual(
+                case["provenance"]["review_status"], "approved"
+            )
+            self.assertEqual(
+                case["provenance"]["last_reviewed_at"], "2026-08-05"
+            )
             self.assertNotIn(
                 "required_substring",
                 {check["type"] for check in case["checks"]},
