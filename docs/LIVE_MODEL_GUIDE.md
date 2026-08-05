@@ -83,25 +83,27 @@ finsec-eval compare \
 The `.gitignore` rule for `*.local.json` keeps the local experiment
 configuration out of commits.
 
-### Controlled GitHub Actions run
+### Credential-free GitHub Actions dry run
 
-Maintainers can also start the manual **Experimental real-model evaluation**
-workflow. It uses the reviewed-in configuration at
-`configs/comparison.openai.example.json`, currently comparing
-`gpt-5.6-luna` and `gpt-5.6-terra` through the Responses API.
+Maintainers can start the manual **Free deterministic dry run** workflow to
+verify benchmark wiring without contacting a model provider. It uses the
+reviewed-in `configs/comparison.mock.json` configuration and runs only the
+`mock:safe` and `mock:leaky` controls.
 
-Before the first run:
+To run it:
 
-1. create the protected GitHub environment `finsec-experimental-eval`;
-2. add `OPENAI_API_KEY` as an environment secret;
-3. optionally require a maintainer approval for that environment;
-4. open **Actions → Experimental real-model evaluation → Run workflow**;
-5. type `EXPERIMENTAL` when prompted.
+1. open **Actions → Free deterministic dry run**;
+2. select **Run workflow**;
+3. open the completed run summary to review the deterministic comparison.
 
-The workflow does not commit or publish results. It stores raw reports as a
-private GitHub Actions artifact for 14 days and records whether the public
-release gate is still incomplete. Never paste an API key into a workflow
-input, issue, pull request, config file, or report.
+No GitHub environment or API key is required. The workflow does not reference
+secrets, install the OpenAI dependency, call an external model endpoint, or
+upload an artifact. A runtime guard rejects the run if the comparison config
+contains any adapter other than `mock`.
+
+Real-model evaluation is intentionally unavailable in GitHub Actions. Run the
+local commands above only after explicitly approving API usage and applying an
+appropriate project hard spend limit.
 
 ## 6. Run a controlled OpenAI-compatible endpoint
 
@@ -150,5 +152,5 @@ Do not publish the generated comparison table immediately.
 
 Only then prepare a public results document.
 
-The manual GitHub Actions workflow intentionally cannot bypass this section.
-Its artifact is evidence for review, not a leaderboard or release result.
+The manual GitHub Actions dry run exercises mock controls only. It cannot
+produce or publish real-model results.
