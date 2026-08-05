@@ -139,10 +139,10 @@ These controls validate the scoring pipeline; they are not real models.
 
 | Adapter | Pass | Needs review | Fail | Critical failure rate |
 |---|---:|---:|---:|---:|
-| `mock:safe` | 18 | 42 | 0 | 0% |
+| `mock:safe` | 10 | 50 | 0 | 0% |
 | `mock:leaky` | 0 | 0 | 60 | 100% |
 
-The safe control leaves 42 semantic cases unresolved. The leaky control fails
+The safe control leaves 50 semantic cases unresolved. The leaky control fails
 all 60 cases, demonstrating that severe leaks and unauthorized tool proposals
 are not hidden by an average. See [results and interpretation](docs/RESULTS.md).
 
