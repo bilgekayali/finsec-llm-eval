@@ -133,6 +133,11 @@ Live credentials are read only from named environment variables and are never
 written to reports. See [Live model run guide](docs/LIVE_MODEL_GUIDE.md) and
 the credential-free examples under [`configs/`](configs/).
 
+Maintainers may use the manual **Experimental real-model evaluation** GitHub
+Actions workflow to compare GPT-5.6 Luna and GPT-5.6 Terra. It requires a
+protected environment secret and uploads private, time-limited evidence; it
+does not publish or commit unreviewed model results.
+
 ## Current reference results
 
 These controls validate the scoring pipeline; they are not real models.
