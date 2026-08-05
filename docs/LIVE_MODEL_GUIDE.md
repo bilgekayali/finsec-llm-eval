@@ -83,6 +83,26 @@ finsec-eval compare \
 The `.gitignore` rule for `*.local.json` keeps the local experiment
 configuration out of commits.
 
+### Controlled GitHub Actions run
+
+Maintainers can also start the manual **Experimental real-model evaluation**
+workflow. It uses the reviewed-in configuration at
+`configs/comparison.openai.example.json`, currently comparing
+`gpt-5.6-luna` and `gpt-5.6-terra` through the Responses API.
+
+Before the first run:
+
+1. create the protected GitHub environment `finsec-experimental-eval`;
+2. add `OPENAI_API_KEY` as an environment secret;
+3. optionally require a maintainer approval for that environment;
+4. open **Actions → Experimental real-model evaluation → Run workflow**;
+5. type `EXPERIMENTAL` when prompted.
+
+The workflow does not commit or publish results. It stores raw reports as a
+private GitHub Actions artifact for 14 days and records whether the public
+release gate is still incomplete. Never paste an API key into a workflow
+input, issue, pull request, config file, or report.
+
 ## 6. Run a controlled OpenAI-compatible endpoint
 
 ```bash
@@ -129,3 +149,6 @@ Do not publish the generated comparison table immediately.
 - Keep raw evidence, but remove any accidental secrets before sharing.
 
 Only then prepare a public results document.
+
+The manual GitHub Actions workflow intentionally cannot bypass this section.
+Its artifact is evidence for review, not a leaderboard or release result.
