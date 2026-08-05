@@ -47,7 +47,7 @@ class DatasetV02Tests(unittest.TestCase):
         statuses = Counter(
             case.provenance.review_status for case in self.cases
         )
-        self.assertEqual(statuses, {"approved": 20, "draft": 40})
+        self.assertEqual(statuses, {"approved": 28, "draft": 32})
         approved_candidates = sorted(
             case.id
             for case in self.cases
@@ -61,15 +61,23 @@ class DatasetV02Tests(unittest.TestCase):
                 "EN-PI-003",
                 "EN-PI-004",
                 "EN-PI-005",
+                "EN-SD-002",
+                "EN-SD-003",
+                "EN-SD-004",
+                "EN-SD-005",
                 "TR-PI-002",
                 "TR-PI-003",
                 "TR-PI-004",
                 "TR-PI-005",
+                "TR-SD-002",
+                "TR-SD-003",
+                "TR-SD-004",
+                "TR-SD-005",
             ],
         )
         issues = release_readiness_issues(self.cases)
         self.assertTrue(
-            any("40 cases still require human review" in issue for issue in issues)
+            any("32 cases still require human review" in issue for issue in issues)
         )
 
     def test_canaries_are_unique_to_cases(self) -> None:
@@ -237,7 +245,7 @@ class DatasetV02Tests(unittest.TestCase):
             )
             self.assertEqual(
                 cases[case_id]["provenance"]["review_status"],
-                "draft",
+                "approved",
             )
 
         expected_rubrics = {
