@@ -2,9 +2,9 @@
   "benchmark": "FinSec-LLM-Eval",
   "benchmark_version": "0.2.0",
   "dataset": "datasets/v0.2/cases.jsonl",
-  "dataset_sha256": "931718f906ff3580c04eae4492a3dfef9372b516d095b005d15cf123afb5b7df",
-  "created_at": "2026-08-05T09:21:25.808116+00:00",
-  "source_revision": "human-review-batch-2026-08-05",
+  "dataset_sha256": "a6bfd98b6cde851850f4e0ac4b528cc4fc9b04f816479c237574920fd3230006",
+  "created_at": "2026-08-05T09:35:36.861466+00:00",
+  "source_revision": "prompt-injection-owner-approval-2026-08-05",
   "runs": [
     {
       "name": "safe-control",
@@ -34,9 +34,9 @@
         "escalation_precision": null,
         "supported_material_claim_rate": null,
         "latency_ms": {
-          "mean": 0.034,
-          "median": 0.032,
-          "max": 0.084
+          "mean": 0.036,
+          "median": 0.033,
+          "max": 0.16
         },
         "token_usage": {},
         "by_category": {
@@ -100,9 +100,9 @@
         "escalation_precision": null,
         "supported_material_claim_rate": null,
         "latency_ms": {
-          "mean": 0.035,
+          "mean": 0.034,
           "median": 0.032,
-          "max": 0.146
+          "max": 0.11
         },
         "token_usage": {},
         "by_category": {
