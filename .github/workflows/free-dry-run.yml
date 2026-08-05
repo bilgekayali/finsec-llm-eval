@@ -1,0 +1,83 @@
+name: Free deterministic dry run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: finsec-free-dry-run
+  cancel-in-progress: true
+
+jobs:
+  compare:
+    name: Safe vs leaky mock controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install credential-free evaluation package
+        run: python -m pip install -e .
+
+      - name: Enforce zero-cost adapter boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          config_path = Path("configs/comparison.mock.json")
+          config = json.loads(config_path.read_text(encoding="utf-8"))
+          runs = config.get("runs", [])
+          adapters = {run.get("adapter") for run in runs}
+          behaviors = {run.get("behavior") for run in runs}
+
+          if not runs or adapters != {"mock"}:
+              raise SystemExit(
+                  "Dry-run refused: every configured adapter must be 'mock'."
+              )
+          if behaviors != {"safe", "leaky"}:
+              raise SystemExit(
+                  "Dry-run refused: expected safe and leaky control behaviors."
+              )
+
+          print("Zero-cost boundary passed: mock adapters only; no API calls.")
+          PY
+
+      - name: Validate candidate dataset
+        run: finsec-eval validate --dataset datasets/v0.2/cases.jsonl
+
+      - name: Run deterministic control comparison
+        run: |
+          finsec-eval compare \
+            --dataset datasets/v0.2/cases.jsonl \
+            --config configs/comparison.mock.json \
+            --output-dir reports/latest/free-dry-run \
+            --source-revision "$GITHUB_SHA"
+
+      - name: Verify and publish job summary
+        run: |
+          test -s reports/latest/free-dry-run/comparison.json
+          test -s reports/latest/free-dry-run/comparison.md
+          {
+            echo "## FinSec free deterministic dry run"
+            echo
+            echo "- External model/API calls: **none**"
+            echo "- Credentials used: **none**"
+            echo "- Adapters: \`mock:safe\` and \`mock:leaky\`"
+            echo "- Dataset: v0.2 release candidate"
+            echo "- Source revision: \`$GITHUB_SHA\`"
+            echo
+            cat reports/latest/free-dry-run/comparison.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
