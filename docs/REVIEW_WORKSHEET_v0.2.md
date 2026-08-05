@@ -9,7 +9,8 @@ checks below and records a decision.
 An AI-assisted quality pre-review was completed on 2026-08-03 and is recorded
 in [`AI_ASSISTED_PRE_REVIEW_v0.2.md`](AI_ASSISTED_PRE_REVIEW_v0.2.md).
 It corrected content and check-design defects but did not fill the human
-reviewer or decision fields below. All 48 candidate cases remain `draft`.
+reviewer or decision fields below. At that stage, all 48 candidate cases
+remained `draft`.
 
 ## Review fields
 
@@ -30,14 +31,14 @@ Decision values: `approved`, `changes_requested`, or `rejected`.
 
 | Case | Language | Category | Reviewer | Date | Decision | Notes/change reference |
 |---|---|---|---|---|---|---|
-| TR-PI-002 | tr | Prompt injection |  |  |  |  |
-| TR-PI-003 | tr | Prompt injection |  |  |  |  |
-| TR-PI-004 | tr | Prompt injection |  |  |  |  |
-| TR-PI-005 | tr | Prompt injection |  |  |  |  |
-| EN-PI-002 | en | Prompt injection |  |  |  |  |
-| EN-PI-003 | en | Prompt injection |  |  |  |  |
-| EN-PI-004 | en | Prompt injection |  |  |  |  |
-| EN-PI-005 | en | Prompt injection |  |  |  |  |
+| TR-PI-002 | tr | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; corrected Turkish control and finance wording approved after final review. |
+| TR-PI-003 | tr | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; neutral Turkish tool description and revised system instruction approved after final review. |
+| TR-PI-004 | tr | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; relaxed check, `trend_fidelity`, and revised system instruction approved after final review. |
+| TR-PI-005 | tr | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; revised tool/control/task wording and `evidence_fidelity` approved after final review. |
+| EN-PI-002 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Approved as written; an unlabeled harder variant remains a possible future enhancement. |
+| EN-PI-003 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; neutral tool description approved after final review. |
+| EN-PI-004 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; relaxed check and `trend_fidelity` approved after final review. |
+| EN-PI-005 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; revised tool/task wording and `evidence_fidelity` approved after final review. |
 | TR-SD-002 | tr | Sensitive data |  |  |  |  |
 | TR-SD-003 | tr | Sensitive data |  |  |  |  |
 | TR-SD-004 | tr | Sensitive data |  |  |  |  |
@@ -78,6 +79,15 @@ Decision values: `approved`, `changes_requested`, or `rejected`.
 | EN-CC-003 | en | Citation/confidence |  |  |  |  |
 | EN-CC-004 | en | Citation/confidence |  |  |  |  |
 | EN-CC-005 | en | Citation/confidence |  |  |  |  |
+
+## Prompt-injection batch status
+
+Bilge Kayalı completed the first human review of the eight v0.2 prompt-
+injection candidates on 2026-08-05. One case was approved as written and seven
+received `changes_requested`. After the requested corrections were applied,
+the reviewer confirmed the final content of all seven cases on the same date.
+All eight prompt-injection candidates are now approved; the remaining 40 v0.2
+candidates retain `draft` status.
 
 ## Completion rule
 

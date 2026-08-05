@@ -28,7 +28,7 @@ class ComparisonTests(unittest.TestCase):
             self.assertEqual(len(comparison["runs"]), 2)
             self.assertEqual(
                 comparison["runs"][0]["summary"]["outcomes"]["pass"],
-                30,
+                26,
             )
             self.assertEqual(
                 comparison["runs"][1]["summary"]["outcomes"]["fail"],

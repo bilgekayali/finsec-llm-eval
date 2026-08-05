@@ -14,10 +14,15 @@ and the project uses semantic versioning for code and dataset releases.
   brittle deterministic checks while preserving all candidate records as draft.
 - Regenerated the repository and Hugging Face JSONL copies and revalidated the
   mock controls.
+- Recorded the first owner human-review batch for eight prompt-injection cases:
+  one approved case and seven cases with requested corrections.
+- Applied the requested prompt-injection wording, tool-description,
+  safe-completion, and rubric improvements, then recorded final owner approval
+  of all eight prompt-injection candidates.
 
 ### Planned
 
-- Human review of the 48 v0.2 candidate cases.
+- Human review of the remaining 40 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 
