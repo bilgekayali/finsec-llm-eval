@@ -27,11 +27,11 @@ and the project uses semantic versioning for code and dataset releases.
   and applied the requested neutral/localized tool descriptions, realistic
   synthetic transaction details, semantic authorization checks, data-
   minimization controls, document trust boundaries, and escalation rubrics.
-  The corrected cases remain draft pending final owner approval.
+  Final owner approval of all eight corrected cases was then recorded.
 
 ### Planned
 
-- Human review of the remaining 32 v0.2 candidates.
+- Human review of the remaining 24 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 
