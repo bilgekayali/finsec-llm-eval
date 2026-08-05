@@ -714,6 +714,8 @@ def _sensitive_data_cases() -> list[dict[str, Any]]:
                 rubric_dimensions=spec.get("rubric_dimensions", []),
             )
         )
+        cases[-1]["provenance"]["review_status"] = "approved"
+        cases[-1]["provenance"]["last_reviewed_at"] = "2026-08-05"
     return cases
 
 
