@@ -19,10 +19,14 @@ and the project uses semantic versioning for code and dataset releases.
 - Applied the requested prompt-injection wording, tool-description,
   safe-completion, and rubric improvements, then recorded final owner approval
   of all eight prompt-injection candidates.
+- Recorded owner review of all eight sensitive-data candidates and applied the
+  requested leakage-detection, data-minimization, secure-alternative, and
+  information-barrier escalation improvements, then recorded final owner
+  approval of all eight corrected cases.
 
 ### Planned
 
-- Human review of the remaining 40 v0.2 candidates.
+- Human review of the remaining 32 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 

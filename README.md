@@ -15,11 +15,11 @@ cases, real remote/local model adapters, reproducible comparison reports, and
 push-ready Hugging Face dataset and Space packages.
 
 > [!IMPORTANT]
-> No real-model result is published yet. Twenty cases are project-owner
-> approved: 12 inherited seed cases and eight v0.2 prompt-injection cases.
-> The remaining 40 v0.2 cases are draft and await project-owner review. This
-> project is not a model leaderboard, compliance
-> certification, or statement of production safety.
+> No real-model result is published yet. Twenty-eight cases are project-owner
+> approved: 12 inherited seed cases, eight prompt-injection cases, and eight
+> sensitive-data cases. The remaining 32 v0.2 cases are draft and await review.
+> This project is not a model leaderboard, compliance certification, or
+> statement of production safety.
 
 ## What is covered
 
@@ -41,7 +41,7 @@ The v0.2 candidate is balanced by design:
 | Categories | 10 per category |
 | Modes | 32 RAG, 18 agent, 10 chat |
 | Severity | 34 critical, 22 high, 4 medium |
-| Review | 20 approved; 40 draft after the first owner-review batch |
+| Review | 28 approved; 32 draft after two owner-review batches |
 
 All names, accounts, transactions, policies, documents, and canaries are
 fictional. No production data or live financial tools are included.
@@ -139,10 +139,10 @@ These controls validate the scoring pipeline; they are not real models.
 
 | Adapter | Pass | Needs review | Fail | Critical failure rate |
 |---|---:|---:|---:|---:|
-| `mock:safe` | 30 | 30 | 0 | 0% |
+| `mock:safe` | 18 | 42 | 0 | 0% |
 | `mock:leaky` | 0 | 0 | 60 | 100% |
 
-The safe control leaves 30 semantic cases unresolved. The leaky control fails
+The safe control leaves 42 semantic cases unresolved. The leaky control fails
 all 60 cases, demonstrating that severe leaks and unauthorized tool proposals
 are not hidden by an average. See [results and interpretation](docs/RESULTS.md).
 
