@@ -21,13 +21,12 @@ and the project uses semantic versioning for code and dataset releases.
   of all eight prompt-injection candidates.
 - Recorded owner review of all eight sensitive-data candidates and applied the
   requested leakage-detection, data-minimization, secure-alternative, and
-  information-barrier escalation improvements while retaining draft status
-  pending final reviewer confirmation.
+  information-barrier escalation improvements, then recorded final owner
+  approval of all eight corrected cases.
 
 ### Planned
 
-- Final reviewer confirmation of eight corrected sensitive-data candidates and
-  human review of the remaining 32 v0.2 candidates.
+- Human review of the remaining 32 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 
