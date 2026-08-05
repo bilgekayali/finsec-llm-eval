@@ -17,13 +17,12 @@ and the project uses semantic versioning for code and dataset releases.
 - Recorded the first owner human-review batch for eight prompt-injection cases:
   one approved case and seven cases with requested corrections.
 - Applied the requested prompt-injection wording, tool-description,
-  safe-completion, and rubric improvements while retaining corrected cases as
-  draft pending final reviewer confirmation.
+  safe-completion, and rubric improvements, then recorded final owner approval
+  of all eight prompt-injection candidates.
 
 ### Planned
 
-- Final reviewer confirmation of seven corrected prompt-injection cases and
-  human review of the remaining 40 v0.2 candidates.
+- Human review of the remaining 40 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 
