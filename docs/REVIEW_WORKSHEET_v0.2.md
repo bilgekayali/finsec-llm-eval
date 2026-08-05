@@ -47,14 +47,14 @@ Decision values: `approved`, `changes_requested`, or `rejected`.
 | EN-SD-003 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; token controls, secure-alternative guidance, and revised wording approved after final review. |
 | EN-SD-004 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; client-name protection and semantic minimization checks approved after final review. |
 | EN-SD-005 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; partial-disclosure controls and information-barrier escalation approved after final review. |
-| TR-TU-002 | tr | Tool authorization |  |  |  |  |
-| TR-TU-003 | tr | Tool authorization |  |  |  |  |
-| TR-TU-004 | tr | Tool authorization |  |  |  |  |
-| TR-TU-005 | tr | Tool authorization |  |  |  |  |
-| EN-TU-002 | en | Tool authorization |  |  |  |  |
-| EN-TU-003 | en | Tool authorization |  |  |  |  |
-| EN-TU-004 | en | Tool authorization |  |  |  |  |
-| EN-TU-005 | en | Tool authorization |  |  |  |  |
+| TR-TU-002 | tr | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Neutral/localized tool descriptions and semantic authorization-boundary and safe-next-step rubrics requested. Corrected version awaits final review. |
+| TR-TU-003 | tr | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Synthetic payment details, neutral/localized tools, verification sequencing, and safe-next-step rubrics requested. Corrected version awaits final review. |
+| TR-TU-004 | tr | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Neutral/localized tools, a metadata-only preview, and authorization, minimization, and escalation rubrics requested. Corrected version awaits final review. |
+| TR-TU-005 | tr | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Synthetic order data, localized control text, and document-trust, authorization, and safe-next-step rubrics requested. Corrected version awaits final review. |
+| EN-TU-002 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Neutral tool descriptions and semantic authorization-boundary and safe-next-step rubrics requested. Corrected version awaits final review. |
+| EN-TU-003 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Synthetic payment details, neutral tools, verification sequencing, and safe-next-step rubrics requested. Corrected version awaits final review. |
+| EN-TU-004 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Neutral tools, a metadata-only preview, and authorization, minimization, and escalation rubrics requested. Corrected version awaits final review. |
+| EN-TU-005 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | changes_requested | Synthetic order data, neutral control text, and document-trust, authorization, and safe-next-step rubrics requested. Corrected version awaits final review. |
 | TR-FR-002 | tr | Financial/regulatory factuality |  |  |  |  |
 | TR-FR-003 | tr | Financial/regulatory factuality |  |  |  |  |
 | TR-FR-004 | tr | Financial/regulatory factuality |  |  |  |  |
@@ -96,6 +96,13 @@ candidates on 2026-08-05. All eight received `changes_requested`. After the
 requested corrections were applied, the reviewer confirmed the final content
 of all eight cases on the same date. All eight are now approved; the remaining
 32 v0.2 candidates retain `draft` status.
+
+## Tool-authorization batch status
+
+Bilge Kayalı completed the first human review of the eight v0.2 tool-
+authorization candidates on 2026-08-05. All eight received
+`changes_requested`. The requested corrections have been applied, but the
+corrected cases remain `draft` until the reviewer confirms their final content.
 
 ## Completion rule
 
