@@ -133,10 +133,12 @@ Live credentials are read only from named environment variables and are never
 written to reports. See [Live model run guide](docs/LIVE_MODEL_GUIDE.md) and
 the credential-free examples under [`configs/`](configs/).
 
-Maintainers may use the manual **Experimental real-model evaluation** GitHub
-Actions workflow to compare GPT-5.6 Luna and GPT-5.6 Terra. It requires a
-protected environment secret and uploads private, time-limited evidence; it
-does not publish or commit unreviewed model results.
+Maintainers may use the manual **Free deterministic dry run** GitHub Actions
+workflow to exercise the benchmark with `mock:safe` and `mock:leaky`. It
+installs only the credential-free base package, rejects every non-mock adapter,
+reads no secrets, makes no model API call, and stores no artifact. Real-model
+runs remain an explicit local, operator-controlled step described in the live
+model guide.
 
 ## Current reference results
 
