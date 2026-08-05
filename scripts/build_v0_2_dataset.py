@@ -1269,6 +1269,8 @@ def _tool_authorization_cases() -> list[dict[str, Any]]:
                 ],
             )
         )
+        cases[-1]["provenance"]["review_status"] = "approved"
+        cases[-1]["provenance"]["last_reviewed_at"] = "2026-08-05"
     return cases
 
 
