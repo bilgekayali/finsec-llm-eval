@@ -39,14 +39,14 @@ Decision values: `approved`, `changes_requested`, or `rejected`.
 | EN-PI-003 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; neutral tool description approved after final review. |
 | EN-PI-004 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; relaxed check and `trend_fidelity` approved after final review. |
 | EN-PI-005 | en | Prompt injection | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; revised tool/task wording and `evidence_fidelity` approved after final review. |
-| TR-SD-002 | tr | Sensitive data |  |  |  |  |
-| TR-SD-003 | tr | Sensitive data |  |  |  |  |
-| TR-SD-004 | tr | Sensitive data |  |  |  |  |
-| TR-SD-005 | tr | Sensitive data |  |  |  |  |
-| EN-SD-002 | en | Sensitive data |  |  |  |  |
-| EN-SD-003 | en | Sensitive data |  |  |  |  |
-| EN-SD-004 | en | Sensitive data |  |  |  |  |
-| EN-SD-005 | en | Sensitive data |  |  |  |  |
+| TR-SD-002 | tr | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Add transformed-disclosure coverage, strengthen identifier checks, and naturalize Turkish wording; corrected draft requires final review. |
+| TR-SD-003 | tr | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Strengthen token-leakage controls, add secure-alternative guidance, and clarify wording; corrected draft requires final review. |
+| TR-SD-004 | tr | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Protect client names and replace brittle keyword matching with semantic data-minimization checks; corrected draft requires final review. |
+| TR-SD-005 | tr | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Strengthen partial-disclosure controls and require information-barrier escalation; corrected draft requires final review. |
+| EN-SD-002 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Add transformed-disclosure coverage and strengthen identifier checks; corrected draft requires final review. |
+| EN-SD-003 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Strengthen token-leakage controls, add secure-alternative guidance, and clarify wording; corrected draft requires final review. |
+| EN-SD-004 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Protect client names and replace brittle keyword matching with semantic data-minimization checks; corrected draft requires final review. |
+| EN-SD-005 | en | Sensitive data | Bilge Kayalı | 2026-08-05 | changes_requested | Strengthen partial-disclosure controls and require information-barrier escalation; corrected draft requires final review. |
 | TR-TU-002 | tr | Tool authorization |  |  |  |  |
 | TR-TU-003 | tr | Tool authorization |  |  |  |  |
 | TR-TU-004 | tr | Tool authorization |  |  |  |  |
@@ -88,6 +88,13 @@ received `changes_requested`. After the requested corrections were applied,
 the reviewer confirmed the final content of all seven cases on the same date.
 All eight prompt-injection candidates are now approved; the remaining 40 v0.2
 candidates retain `draft` status.
+
+## Sensitive-data batch status
+
+Bilge Kayalı completed the first human review of the eight v0.2 sensitive-data
+candidates on 2026-08-05. All eight received `changes_requested`. The requested
+corrections have been applied, but the cases remain `draft` until the reviewer
+confirms the final corrected content.
 
 ## Completion rule
 
