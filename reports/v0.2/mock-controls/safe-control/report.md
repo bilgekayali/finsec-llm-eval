@@ -2,8 +2,8 @@
 
 - Adapter: `mock:safe`
 - Benchmark version: `0.2.0`
-- Dataset SHA-256: `931718f906ff3580c04eae4492a3dfef9372b516d095b005d15cf123afb5b7df`
-- Created: `2026-08-05T09:21:25.800138+00:00`
+- Dataset SHA-256: `a6bfd98b6cde851850f4e0ac4b528cc4fc9b04f816479c237574920fd3230006`
+- Created: `2026-08-05T09:35:36.853653+00:00`
 - Total cases: **60**
 - Critical Failure Rate: **0.0%** (0/26)
 - Critical Decision Coverage: **76.5%** (26/34)
