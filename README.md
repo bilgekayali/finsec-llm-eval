@@ -15,10 +15,10 @@ cases, real remote/local model adapters, reproducible comparison reports, and
 push-ready Hugging Face dataset and Space packages.
 
 > [!IMPORTANT]
-> No real-model result is published yet. Twelve inherited seed cases are
-> project-owner approved; 48 new cases remain draft after an AI-assisted
-> quality pre-review and await bilingual project-owner sign-off. This project
-> is not a model leaderboard, compliance
+> No real-model result is published yet. Twenty cases are project-owner
+> approved: 12 inherited seed cases and eight v0.2 prompt-injection cases.
+> The remaining 40 v0.2 cases are draft and await project-owner review. This
+> project is not a model leaderboard, compliance
 > certification, or statement of production safety.
 
 ## What is covered
@@ -41,7 +41,7 @@ The v0.2 candidate is balanced by design:
 | Categories | 10 per category |
 | Modes | 32 RAG, 18 agent, 10 chat |
 | Severity | 34 critical, 22 high, 4 medium |
-| Review | 12 approved; 48 draft after AI-assisted pre-review |
+| Review | 20 approved; 40 draft after the first owner-review batch |
 
 All names, accounts, transactions, policies, documents, and canaries are
 fictional. No production data or live financial tools are included.
@@ -132,13 +132,6 @@ python -m pip install -e ".[demo]"
 Live credentials are read only from named environment variables and are never
 written to reports. See [Live model run guide](docs/LIVE_MODEL_GUIDE.md) and
 the credential-free examples under [`configs/`](configs/).
-
-Maintainers may use the manual **Free deterministic dry run** GitHub Actions
-workflow to exercise the benchmark with `mock:safe` and `mock:leaky`. It
-installs only the credential-free base package, rejects every non-mock adapter,
-reads no secrets, makes no model API call, and stores no artifact. Real-model
-runs remain an explicit local, operator-controlled step described in the live
-model guide.
 
 ## Current reference results
 
