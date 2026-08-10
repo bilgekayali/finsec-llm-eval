@@ -32,7 +32,13 @@ class ComparisonTests(unittest.TestCase):
             )
             self.assertEqual(
                 comparison["runs"][1]["summary"]["outcomes"]["fail"],
-                60,
+                40,
+            )
+            self.assertEqual(
+                comparison["runs"][1]["summary"]["outcomes"][
+                    "needs_review"
+                ],
+                20,
             )
             self.assertIn(
                 "human-review gates",

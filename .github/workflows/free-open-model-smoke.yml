@@ -1,0 +1,147 @@
+name: Free open-model smoke comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/complete-v0-2-review
+    paths:
+      - .github/workflows/free-open-model-smoke.yml
+      - configs/comparison.free-open-model-smoke.json
+      - datasets/v0.1/cases.jsonl
+      - src/finsec_eval/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: finsec-free-open-model-smoke
+  cancel-in-progress: true
+
+env:
+  HF_HUB_DISABLE_TELEMETRY: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  TRANSFORMERS_VERBOSITY: error
+
+jobs:
+  compare:
+    name: SmolLM2 135M vs Qwen2.5 0.5B
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned CPU runtime
+        run: |
+          python -m pip install \
+            --index-url https://download.pytorch.org/whl/cpu \
+            "torch==2.6.0"
+          python -m pip install -e . "transformers==4.48.3"
+
+      - name: Enforce credential-free open-model boundary
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          path = Path("configs/comparison.free-open-model-smoke.json")
+          config = json.loads(path.read_text(encoding="utf-8"))
+          runs = config.get("runs", [])
+          expected_models = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct",
+              "Qwen/Qwen2.5-0.5B-Instruct",
+          }
+
+          if len(runs) != 2:
+              raise SystemExit("Expected exactly two open-model runs.")
+          if {run.get("adapter") for run in runs} != {"huggingface_local"}:
+              raise SystemExit("Only the local Hugging Face adapter is allowed.")
+          if {run.get("model") for run in runs} != expected_models:
+              raise SystemExit("Unexpected model in the smoke comparison.")
+          if any(run.get("device") != "cpu" for run in runs):
+              raise SystemExit("Only the standard CPU runner is allowed.")
+          if any(run.get("temperature") != 0 for run in runs):
+              raise SystemExit("Smoke runs must be deterministic.")
+          if any(run.get("max_new_tokens", 0) > 96 for run in runs):
+              raise SystemExit("Generation limit exceeds the reviewed boundary.")
+          if any(
+              not re.fullmatch(r"[0-9a-f]{40}", str(run.get("revision", "")))
+              for run in runs
+          ):
+              raise SystemExit("Every model revision must be an immutable commit.")
+          if any("api_key" in key.lower() for run in runs for key in run):
+              raise SystemExit("API-key fields are prohibited.")
+
+          print("Boundary passed: two pinned public models, CPU only, no API key.")
+          PY
+
+      - name: Validate reviewed datasets
+        run: |
+          finsec-eval validate --dataset datasets/v0.1/cases.jsonl
+          finsec-eval validate \
+            --dataset datasets/v0.2/cases.jsonl \
+            --release-ready
+
+      - name: Run real open-model smoke comparison
+        run: |
+          finsec-eval compare \
+            --dataset datasets/v0.1/cases.jsonl \
+            --config configs/comparison.free-open-model-smoke.json \
+            --output-dir /tmp/finsec-free-open-model-smoke \
+            --source-revision "$GITHUB_SHA"
+
+      - name: Verify and expose review evidence
+        run: |
+          test -s /tmp/finsec-free-open-model-smoke/comparison.json
+          test -s /tmp/finsec-free-open-model-smoke/comparison.md
+          {
+            echo "## FinSec free open-model smoke comparison"
+            echo
+            echo "- Paid model/API calls: **none**"
+            echo "- Credentials or repository secrets: **none**"
+            echo "- Runner: standard public-repository CPU runner"
+            echo "- Dataset: approved 12-case v0.1 seed"
+            echo "- Tool-using cases: **not applicable** for this text-only adapter"
+            echo "- Status: **provisional; model outputs are not human-adjudicated**"
+            echo "- Source revision: \`$GITHUB_SHA\`"
+            echo
+            cat /tmp/finsec-free-open-model-smoke/comparison.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "FINSEC_SMOKE_EVIDENCE_BEGIN"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("/tmp/finsec-free-open-model-smoke")
+          comparison = json.loads(
+              (root / "comparison.json").read_text(encoding="utf-8")
+          )
+          evidence = {
+              "status": "provisional_unadjudicated",
+              "claim_boundary": (
+                  "A credential-free smoke comparison, not a leaderboard, "
+                  "compliance claim, or production-safety assessment."
+              ),
+              "comparison": comparison,
+              "reports": [],
+          }
+          for run in comparison["runs"]:
+              report_path = Path(run["report_json"])
+              report = json.loads(report_path.read_text(encoding="utf-8"))
+              if report["run_manifest"]["credentials_recorded"] is not False:
+                  raise SystemExit("Credential-recording invariant failed.")
+              evidence["reports"].append(report)
+          print(json.dumps(evidence, ensure_ascii=False, sort_keys=True))
+          PY
+          echo "FINSEC_SMOKE_EVIDENCE_END"

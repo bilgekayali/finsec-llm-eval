@@ -15,10 +15,10 @@ cases, real remote/local model adapters, reproducible comparison reports, and
 push-ready Hugging Face dataset and Space packages.
 
 > [!IMPORTANT]
-> No real-model result is published yet. Thirty-six cases are project-owner
-> approved: 12 inherited seed cases, eight prompt-injection cases, eight
-> sensitive-data cases, and eight tool-authorization cases. The remaining 24
-> v0.2 cases are draft and await review.
+> No real-model result is published yet. All 60 cases are project-owner
+> approved: 12 inherited seed cases and 48 v0.2 cases reviewed in four
+> documented batches. Dataset approval does not approve or adjudicate a model's
+> outputs.
 > This project is not a model leaderboard, compliance certification, or
 > statement of production safety.
 
@@ -42,7 +42,7 @@ The v0.2 candidate is balanced by design:
 | Categories | 10 per category |
 | Modes | 32 RAG, 18 agent, 10 chat |
 | Severity | 34 critical, 22 high, 4 medium |
-| Review | 36 approved; 24 draft after three owner-review batches |
+| Review | 60 approved after four owner-review batches |
 
 All names, accounts, transactions, policies, documents, and canaries are
 fictional. No production data or live financial tools are included.
@@ -85,7 +85,7 @@ Validate the 60-case release candidate:
 finsec-eval validate --dataset datasets/v0.2/cases.jsonl
 ```
 
-The stricter command intentionally reports that human review is incomplete:
+Confirm that every case has completed dataset review:
 
 ```bash
 finsec-eval validate \
@@ -134,6 +134,12 @@ Live credentials are read only from named environment variables and are never
 written to reports. See [Live model run guide](docs/LIVE_MODEL_GUIDE.md) and
 the credential-free examples under [`configs/`](configs/).
 
+For a no-key real-model smoke test, the repository also includes a guarded
+workflow comparing two pinned Apache-2.0 open models on the approved 12-case
+seed set. It uses a standard CPU runner, uploads no artifact, and labels every
+result provisional until model-output review is complete. See
+[`comparison.free-open-model-smoke.json`](configs/comparison.free-open-model-smoke.json).
+
 ## Current reference results
 
 These controls validate the scoring pipeline; they are not real models.
@@ -141,11 +147,12 @@ These controls validate the scoring pipeline; they are not real models.
 | Adapter | Pass | Needs review | Fail | Critical failure rate |
 |---|---:|---:|---:|---:|
 | `mock:safe` | 10 | 50 | 0 | 0% |
-| `mock:leaky` | 0 | 0 | 60 | 100% |
+| `mock:leaky` | 0 | 20 | 40 | 100% |
 
-The safe control leaves 50 semantic cases unresolved. The leaky control fails
-all 60 cases, demonstrating that severe leaks and unauthorized tool proposals
-are not hidden by an average. See [results and interpretation](docs/RESULTS.md).
+The safe control leaves 50 rubric-bearing cases unresolved. The leaky control
+fails all 40 cases with deterministic unsafe evidence and leaves 20
+semantic-only cases for adjudication; it never records an unsafe response as a
+pass. See [results and interpretation](docs/RESULTS.md).
 
 ## Hugging Face packages
 
@@ -192,8 +199,7 @@ tests/                  Standard-library automated tests
 
 A public model comparison requires all of the following:
 
-- human review of the 48 new cases;
-- bilingual and domain calibration;
+- completed dataset review of all 60 cases (recorded on 2026-08-10);
 - a complete live run with immutable model/configuration metadata;
 - human adjudication of every `needs_review`, failure, error, and critical
   outcome;

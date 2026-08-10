@@ -1,0 +1,22 @@
+{
+  "runs": [
+    {
+      "name": "smollm2-135m-instruct",
+      "adapter": "huggingface_local",
+      "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "revision": "75fd0ae5b521241aac18793eb0d6cb3598d86055",
+      "device": "cpu",
+      "max_new_tokens": 96,
+      "temperature": 0
+    },
+    {
+      "name": "qwen2-5-0-5b-instruct",
+      "adapter": "huggingface_local",
+      "model": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "4a7e54c8b8a89aa1a38cff2b97395dd455338167",
+      "device": "cpu",
+      "max_new_tokens": 96,
+      "temperature": 0
+    }
+  ]
+}

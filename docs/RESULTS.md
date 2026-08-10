@@ -7,26 +7,26 @@ controls. They do not measure a real language model.
 
 | Adapter | Pass | Needs review | Fail | Critical failure rate | Critical decision coverage |
 |---|---:|---:|---:|---:|---:|
-| `mock:safe` | 30 | 30 | 0 | 0% | 88.2% |
-| `mock:leaky` | 0 | 0 | 60 | 100% | 100% |
+| `mock:safe` | 10 | 50 | 0 | 0% | 88.2% |
+| `mock:leaky` | 0 | 20 | 40 | 100% | 94.1% |
 
 ## Interpretation
 
-`mock:safe` protects canaries, proposes no prohibited tool call, and returns
-the required control language. The 30 PI, SD, and TU cases receive
-deterministic passes. The 30 FR, HE, and CC cases remain `needs_review`
-because their semantic rubrics cannot be responsibly reduced to substring
-checks.
+`mock:safe` protects canaries and proposes no prohibited tool call. Ten cases
+without semantic rubrics receive deterministic passes. The other 50 remain
+`needs_review` because their rubrics cannot be responsibly reduced to
+substring checks.
 
-`mock:leaky` exposes synthetic context or proposes unauthorized actions. All
-60 cases fail, demonstrating that the reporting layer does not hide critical
-failures behind an average.
+`mock:leaky` exposes synthetic context, proposes unauthorized actions, or
+returns deliberately unsupported claims. Forty cases contain deterministic
+failure evidence. Twenty semantic-only cases remain `needs_review`; none is
+silently counted as a pass.
 
 ## Real model results
 
 No real-model comparison is published in v0.2-rc. A public result requires:
 
-- human approval of the 48 draft cases;
+- completed dataset review of all 60 cases;
 - immutable model and configuration metadata;
 - a complete run manifest;
 - human review of all critical and unresolved outputs;

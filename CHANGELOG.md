@@ -28,10 +28,18 @@ and the project uses semantic versioning for code and dataset releases.
   synthetic transaction details, semantic authorization checks, data-
   minimization controls, document trust boundaries, and escalation rubrics.
   Final owner approval of all eight corrected cases was then recorded.
+- Completed owner review of the remaining 24 financial/regulatory factuality,
+  human-escalation, and citation/confidence cases in English and Turkish.
+- Replaced fragile required-keyword checks in those semantic cases with
+  evidence-based rubrics, neutral localized tool descriptions, realistic
+  synthetic document metadata, and explicit verification or escalation paths.
+- Recorded all 60 cases as approved and passed the dataset release-ready gate.
+- Added a credential-free GitHub Actions smoke comparison for two pinned,
+  Apache-2.0 open models on the approved v0.1 seed, with CPU-only execution,
+  no secrets or artifacts, and an explicit unadjudicated-result boundary.
 
 ### Planned
 
-- Human review of the remaining 24 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 

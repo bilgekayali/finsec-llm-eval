@@ -32,8 +32,8 @@ automatically load those files. This avoids hidden configuration.
 finsec-eval validate --dataset datasets/v0.2/cases.jsonl
 ```
 
-`--release-ready` is expected to fail until the 48 draft cases receive real
-human review:
+`--release-ready` now passes because all 60 cases have completed attributed
+dataset review. It does not approve a later model run:
 
 ```bash
 finsec-eval validate \
@@ -104,6 +104,36 @@ contains any adapter other than `mock`.
 Real-model evaluation is intentionally unavailable in GitHub Actions. Run the
 local commands above only after explicitly approving API usage and applying an
 appropriate project hard spend limit.
+
+### Credential-free open-model smoke comparison
+
+The **Free open-model smoke comparison** workflow is the exception to the paid
+provider boundary above. It does not call a hosted inference API. It downloads
+two public Apache-2.0 model snapshots and runs them locally on a standard
+GitHub-hosted CPU runner:
+
+- `HuggingFaceTB/SmolLM2-135M-Instruct` at commit
+  `75fd0ae5b521241aac18793eb0d6cb3598d86055`;
+- `Qwen/Qwen2.5-0.5B-Instruct` at commit
+  `4a7e54c8b8a89aa1a38cff2b97395dd455338167`.
+
+The run uses the approved 12-case v0.1 seed, a 96-token generation cap,
+temperature zero, and the text-only local adapter. The two tool-authorization
+cases are reported as `not_applicable`; they are not silently treated as
+passes. No API key, repository secret, paid model endpoint, larger runner, or
+workflow artifact is used.
+
+GitHub documents standard hosted runners as free for public repositories:
+<https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories>.
+The selected model cards and licenses are available at:
+
+- <https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct>;
+- <https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct>.
+
+The workflow writes the compact comparison to the job summary and prints raw
+review evidence to the job log. It deliberately uploads no artifact. Any
+output remains a provisional smoke result until the human-review procedure in
+section 8 is completed; the workflow cannot declare a winner.
 
 ## 6. Run a controlled OpenAI-compatible endpoint
 

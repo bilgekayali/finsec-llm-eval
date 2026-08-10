@@ -62,9 +62,9 @@ It includes:
 - reproducible JSON and Markdown reports;
 - push-ready Hugging Face dataset and Gradio Space packages.
 
-One deliberate limitation: I am not publishing a real-model ranking yet. The
-48 new cases need human review, and model outputs need a separate audit before
-a comparison would be responsible.
+One deliberate limitation: I am not publishing a real-model ranking yet. All
+60 cases have completed dataset review, but model outputs need a separate audit
+before a comparison would be responsible.
 
 Repository:
 https://github.com/bilgekayali/finsec-llm-eval

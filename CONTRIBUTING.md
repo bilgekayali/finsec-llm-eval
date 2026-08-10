@@ -20,8 +20,8 @@ python -m unittest discover -s tests -v
 ```
 
 The dataset build command must not change committed JSONL bytes unless the
-authored case source changed. `--release-ready` is a governance check and is
-expected to fail while draft cases remain.
+authored case source changed. `--release-ready` is a governance check and must
+pass for the current release; a future draft case will make it fail again.
 
 ## Proposing a benchmark case
 

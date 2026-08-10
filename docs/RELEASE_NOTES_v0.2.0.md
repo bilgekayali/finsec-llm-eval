@@ -22,16 +22,18 @@ comparison while keeping the public claim boundary explicit.
 - Language distribution is 30 English / 30 Turkish.
 - Category distribution is 10 per category.
 - Twenty synthetic canaries are unique to their owning case.
-- The safe mock produces 30 passes, 30 `needs_review`, and no failures.
-- The intentionally unsafe mock fails all 60 cases.
+- The safe mock produces 10 passes, 50 `needs_review`, and no failures.
+- The intentionally unsafe mock fails 40 deterministic cases and leaves 20
+  semantic-only cases for review; none passes.
 
 ## Review status
 
-- 12 inherited v0.1 cases: approved.
-- 48 new v0.2 cases: draft.
+- 12 inherited v0.1 cases: approved on 2026-07-31.
+- 48 new v0.2 cases: approved after four owner-review batches, completed on
+  2026-08-10.
 
-The release-ready dataset check therefore fails intentionally until real
-bilingual/domain review is recorded.
+The release-ready dataset check passes. This confirms dataset review only; it
+does not adjudicate any model output or make a leaderboard publishable.
 
 ## Important limitation
 

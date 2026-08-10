@@ -12,8 +12,8 @@
 - [x] Test remote adapter contracts without credentials.
 - [x] Test local and recorded adapters.
 - [x] Generate mock-control comparison reports.
-- [ ] Record human review of the 48 new cases.
-- [ ] Pass `finsec-eval validate --release-ready`.
+- [x] Record human review of the 48 new cases.
+- [x] Pass `finsec-eval validate --release-ready`.
 
 ## External model comparison
 

@@ -6,6 +6,10 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW = ROOT / ".github" / "workflows" / "free-dry-run.yml"
+OPEN_MODEL_WORKFLOW = (
+    ROOT / ".github" / "workflows" / "free-open-model-smoke.yml"
+)
+OPEN_MODEL_CONFIG = ROOT / "configs" / "comparison.free-open-model-smoke.json"
 
 
 class FreeDryRunWorkflowSafetyTests(unittest.TestCase):
@@ -30,6 +34,44 @@ class FreeDryRunWorkflowSafetyTests(unittest.TestCase):
         for fragment in forbidden_fragments:
             with self.subTest(fragment=fragment):
                 self.assertNotIn(fragment, text)
+
+
+class FreeOpenModelWorkflowSafetyTests(unittest.TestCase):
+    def test_workflow_uses_standard_cpu_without_credentials(self) -> None:
+        text = OPEN_MODEL_WORKFLOW.read_text(encoding="utf-8")
+
+        self.assertIn("runs-on: ubuntu-latest", text)
+        self.assertIn('"device") != "cpu"', text)
+        self.assertIn("datasets/v0.1/cases.jsonl", text)
+        self.assertIn("provisional; model outputs are not human-adjudicated", text)
+        for fragment in (
+            "secrets.",
+            "OPENAI_API_KEY",
+            "upload-artifact",
+            "environment:",
+            "larger-runner",
+        ):
+            with self.subTest(fragment=fragment):
+                self.assertNotIn(fragment, text)
+
+    def test_config_pins_two_public_local_models(self) -> None:
+        import json
+        import re
+
+        config = json.loads(OPEN_MODEL_CONFIG.read_text(encoding="utf-8"))
+        runs = config["runs"]
+        self.assertEqual(len(runs), 2)
+        self.assertEqual(
+            {run["adapter"] for run in runs}, {"huggingface_local"}
+        )
+        self.assertTrue(all(run["device"] == "cpu" for run in runs))
+        self.assertTrue(all(run["temperature"] == 0 for run in runs))
+        self.assertTrue(
+            all(
+                re.fullmatch(r"[0-9a-f]{40}", run["revision"])
+                for run in runs
+            )
+        )
 
 
 if __name__ == "__main__":

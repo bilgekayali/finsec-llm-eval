@@ -38,9 +38,9 @@ The v0.2 release candidate contains 60 cases:
 ## Important review status
 
 This package is a **release candidate**, not a public model leaderboard.
-Twelve inherited seed cases are project-owner approved. The 48 new cases are
-marked `draft` until bilingual domain review is recorded. Model outputs also
-require a separate human review before any public comparison claim.
+All 60 cases are project-owner approved after bilingual review. This dataset
+approval does not approve model outputs: every evaluated output still requires
+the separate adjudication and audit process before a public comparison claim.
 
 ## Risk categories
 
