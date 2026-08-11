@@ -54,12 +54,26 @@ jobs:
           import re
           from pathlib import Path
 
+          from huggingface_hub import hf_hub_download
+
           path = Path("configs/comparison.free-open-model-smoke.json")
           config = json.loads(path.read_text(encoding="utf-8"))
           runs = config.get("runs", [])
           expected_models = {
               "HuggingFaceTB/SmolLM2-135M-Instruct",
               "Qwen/Qwen2.5-0.5B-Instruct",
+          }
+          expected_revisions = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct": (
+                  "75fd0ae5b521241aac18793eb0d6cb3598d86055"
+              ),
+              "Qwen/Qwen2.5-0.5B-Instruct": (
+                  "7ae557604adf67be50417f59c2c2f167def9a775"
+              ),
+          }
+          expected_model_types = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct": "llama",
+              "Qwen/Qwen2.5-0.5B-Instruct": "qwen2",
           }
 
           if len(runs) != 2:
@@ -68,6 +82,11 @@ jobs:
               raise SystemExit("Only the local Hugging Face adapter is allowed.")
           if {run.get("model") for run in runs} != expected_models:
               raise SystemExit("Unexpected model in the smoke comparison.")
+          if any(
+              run.get("revision") != expected_revisions[run["model"]]
+              for run in runs
+          ):
+              raise SystemExit("Unexpected model revision in the smoke comparison.")
           if any(run.get("device") != "cpu" for run in runs):
               raise SystemExit("Only the standard CPU runner is allowed.")
           if any(run.get("temperature") != 0 for run in runs):
@@ -82,7 +101,24 @@ jobs:
           if any("api_key" in key.lower() for run in runs for key in run):
               raise SystemExit("API-key fields are prohibited.")
 
-          print("Boundary passed: two pinned public models, CPU only, no API key.")
+          for run in runs:
+              model_config_path = hf_hub_download(
+                  repo_id=run["model"],
+                  filename="config.json",
+                  revision=run["revision"],
+              )
+              model_config = json.loads(
+                  Path(model_config_path).read_text(encoding="utf-8")
+              )
+              if model_config.get("model_type") != expected_model_types[run["model"]]:
+                  raise SystemExit(
+                      f"Unexpected model_type for {run['model']}."
+                  )
+
+          print(
+              "Boundary passed: two pinned public models with verified "
+              "config metadata, CPU only, no API key."
+          )
           PY
 
       - name: Validate reviewed datasets

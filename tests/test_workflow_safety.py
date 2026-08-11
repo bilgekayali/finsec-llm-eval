@@ -52,6 +52,8 @@ class FreeOpenModelWorkflowSafetyTests(unittest.TestCase):
         self.assertIn("if: always()", text)
         self.assertIn("run-status.json", text)
         self.assertIn("evidence_generated", text)
+        self.assertIn("hf_hub_download", text)
+        self.assertIn("expected_model_types", text)
         self.assertEqual(text.count("github.token"), 1)
         self.assertNotIn(
             "\n      - reports/v0.2/free-open-model-smoke", text
@@ -83,6 +85,17 @@ class FreeOpenModelWorkflowSafetyTests(unittest.TestCase):
                 re.fullmatch(r"[0-9a-f]{40}", run["revision"])
                 for run in runs
             )
+        )
+        self.assertEqual(
+            {run["model"]: run["revision"] for run in runs},
+            {
+                "HuggingFaceTB/SmolLM2-135M-Instruct": (
+                    "75fd0ae5b521241aac18793eb0d6cb3598d86055"
+                ),
+                "Qwen/Qwen2.5-0.5B-Instruct": (
+                    "7ae557604adf67be50417f59c2c2f167def9a775"
+                ),
+            },
         )
 
 

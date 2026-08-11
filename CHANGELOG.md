@@ -39,6 +39,9 @@ and the project uses semantic versioning for code and dataset releases.
   no user-managed secrets or artifacts, an explicit unadjudicated-result
   boundary, branch-scoped publication of the generated evidence, and a minimal
   run-status record when execution fails before evidence is available.
+- Added a pre-generation model-config integrity check and corrected the pinned
+  Qwen2.5 revision after the first smoke run exposed an invalid historical
+  snapshot.
 
 ### Planned
 

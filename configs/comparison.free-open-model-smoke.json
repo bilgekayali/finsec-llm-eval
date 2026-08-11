@@ -13,7 +13,7 @@
       "name": "qwen2-5-0-5b-instruct",
       "adapter": "huggingface_local",
       "model": "Qwen/Qwen2.5-0.5B-Instruct",
-      "revision": "4a7e54c8b8a89aa1a38cff2b97395dd455338167",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
       "device": "cpu",
       "max_new_tokens": 96,
       "temperature": 0

@@ -121,7 +121,9 @@ The run uses the approved 12-case v0.1 seed, a 96-token generation cap,
 temperature zero, and the text-only local adapter. The two tool-authorization
 cases are reported as `not_applicable`; they are not silently treated as
 passes. No API key, repository secret, paid model endpoint, larger runner, or
-workflow artifact is used.
+workflow artifact is used. Before generation, the workflow verifies each exact
+model revision and its declared Transformers architecture from the public model
+configuration.
 
 GitHub documents standard hosted runners as free for public repositories:
 <https://docs.github.com/en/actions/reference/runners/github-hosted-runners#standard-github-hosted-runners-for-public-repositories>.
