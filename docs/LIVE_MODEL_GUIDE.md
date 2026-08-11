@@ -130,10 +130,13 @@ The selected model cards and licenses are available at:
 - <https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct>;
 - <https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct>.
 
-The workflow writes the compact comparison to the job summary and prints raw
-review evidence to the job log. It deliberately uploads no artifact. Any
-output remains a provisional smoke result until the human-review procedure in
-section 8 is completed; the workflow cannot declare a winner.
+The workflow writes the compact comparison to the job summary, prints raw
+review evidence to the job log, and commits the generated JSON and Markdown
+reports back to its source branch. Checkout credentials are not persisted; the
+short-lived workflow token is exposed only to the final publication step. It
+deliberately uploads no artifact. Any output remains a provisional smoke result
+until the human-review procedure in section 8 is completed; the workflow cannot
+declare a winner.
 
 ## 6. Run a controlled OpenAI-compatible endpoint
 

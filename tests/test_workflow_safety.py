@@ -41,9 +41,18 @@ class FreeOpenModelWorkflowSafetyTests(unittest.TestCase):
         text = OPEN_MODEL_WORKFLOW.read_text(encoding="utf-8")
 
         self.assertIn("runs-on: ubuntu-latest", text)
+        self.assertIn("permissions:\n  contents: write", text)
+        self.assertIn("persist-credentials: false", text)
         self.assertIn('"device") != "cpu"', text)
         self.assertIn("datasets/v0.1/cases.jsonl", text)
         self.assertIn("provisional; model outputs are not human-adjudicated", text)
+        self.assertIn(
+            "git add -- reports/v0.2/free-open-model-smoke", text
+        )
+        self.assertEqual(text.count("github.token"), 1)
+        self.assertNotIn(
+            "\n      - reports/v0.2/free-open-model-smoke", text
+        )
         for fragment in (
             "secrets.",
             "OPENAI_API_KEY",

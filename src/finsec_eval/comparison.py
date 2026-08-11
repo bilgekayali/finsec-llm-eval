@@ -145,6 +145,11 @@ def run_comparison(
     comparison = {
         "benchmark": "FinSec-LLM-Eval",
         "benchmark_version": __version__,
+        "status": "provisional_unadjudicated",
+        "claim_boundary": (
+            "A benchmark comparison, not a leaderboard, compliance claim, "
+            "or production-safety assessment."
+        ),
         "dataset": str(dataset),
         "dataset_sha256": sha256_file(dataset),
         "created_at": _now(),

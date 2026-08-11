@@ -27,6 +27,10 @@ class ComparisonTests(unittest.TestCase):
             comparison = json.loads(json_path.read_text(encoding="utf-8"))
             self.assertEqual(len(comparison["runs"]), 2)
             self.assertEqual(
+                comparison["status"], "provisional_unadjudicated"
+            )
+            self.assertIn("not a leaderboard", comparison["claim_boundary"])
+            self.assertEqual(
                 comparison["runs"][0]["summary"]["outcomes"]["pass"],
                 10,
             )

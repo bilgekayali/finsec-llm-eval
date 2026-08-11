@@ -136,8 +136,9 @@ the credential-free examples under [`configs/`](configs/).
 
 For a no-key real-model smoke test, the repository also includes a guarded
 workflow comparing two pinned Apache-2.0 open models on the approved 12-case
-seed set. It uses a standard CPU runner, uploads no artifact, and labels every
-result provisional until model-output review is complete. See
+seed set. It uses a standard CPU runner, uploads no artifact, and commits the
+generated evidence to the source branch with a provisional label until
+model-output review is complete. See
 [`comparison.free-open-model-smoke.json`](configs/comparison.free-open-model-smoke.json).
 
 ## Current reference results

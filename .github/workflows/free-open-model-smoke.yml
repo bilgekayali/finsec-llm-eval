@@ -12,7 +12,7 @@ on:
       - src/finsec_eval/**
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: finsec-free-open-model-smoke
@@ -87,6 +87,7 @@ jobs:
 
       - name: Validate reviewed datasets
         run: |
+          python -m unittest discover -s tests -v
           finsec-eval validate --dataset datasets/v0.1/cases.jsonl
           finsec-eval validate \
             --dataset datasets/v0.2/cases.jsonl \
@@ -97,13 +98,13 @@ jobs:
           finsec-eval compare \
             --dataset datasets/v0.1/cases.jsonl \
             --config configs/comparison.free-open-model-smoke.json \
-            --output-dir /tmp/finsec-free-open-model-smoke \
+            --output-dir reports/v0.2/free-open-model-smoke \
             --source-revision "$GITHUB_SHA"
 
       - name: Verify and expose review evidence
         run: |
-          test -s /tmp/finsec-free-open-model-smoke/comparison.json
-          test -s /tmp/finsec-free-open-model-smoke/comparison.md
+          test -s reports/v0.2/free-open-model-smoke/comparison.json
+          test -s reports/v0.2/free-open-model-smoke/comparison.md
           {
             echo "## FinSec free open-model smoke comparison"
             echo
@@ -115,7 +116,7 @@ jobs:
             echo "- Status: **provisional; model outputs are not human-adjudicated**"
             echo "- Source revision: \`$GITHUB_SHA\`"
             echo
-            cat /tmp/finsec-free-open-model-smoke/comparison.md
+            cat reports/v0.2/free-open-model-smoke/comparison.md
           } >> "$GITHUB_STEP_SUMMARY"
 
           echo "FINSEC_SMOKE_EVIDENCE_BEGIN"
@@ -123,7 +124,7 @@ jobs:
           import json
           from pathlib import Path
 
-          root = Path("/tmp/finsec-free-open-model-smoke")
+          root = Path("reports/v0.2/free-open-model-smoke")
           comparison = json.loads(
               (root / "comparison.json").read_text(encoding="utf-8")
           )
@@ -145,3 +146,20 @@ jobs:
           print(json.dumps(evidence, ensure_ascii=False, sort_keys=True))
           PY
           echo "FINSEC_SMOKE_EVIDENCE_END"
+
+      - name: Publish generated evidence to the source branch
+        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- reports/v0.2/free-open-model-smoke
+          if git diff --cached --quiet; then
+            echo "No report changes to publish."
+            exit 0
+          fi
+          git commit -m "Publish free open-model smoke evidence"
+          git push \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:${GITHUB_REF_NAME}"

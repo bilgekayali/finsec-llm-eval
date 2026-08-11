@@ -36,7 +36,8 @@ and the project uses semantic versioning for code and dataset releases.
 - Recorded all 60 cases as approved and passed the dataset release-ready gate.
 - Added a credential-free GitHub Actions smoke comparison for two pinned,
   Apache-2.0 open models on the approved v0.1 seed, with CPU-only execution,
-  no secrets or artifacts, and an explicit unadjudicated-result boundary.
+  no user-managed secrets or artifacts, an explicit unadjudicated-result
+  boundary, and branch-scoped publication of the generated evidence.
 
 ### Planned
 
