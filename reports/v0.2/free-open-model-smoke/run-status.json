@@ -1,0 +1,9 @@
+{
+  "claim_boundary": "Operational run status only; successful model evidence remains provisional and unadjudicated.",
+  "evidence_generated": false,
+  "source_revision": "00ec8a242d79d6c45461ea59e8e8e2d17a5d087b",
+  "status": "failure",
+  "workflow_run_attempt": "1",
+  "workflow_run_id": "31492248695",
+  "workflow_run_url": "https://github.com/bilgekayali/finsec-llm-eval/actions/runs/31492248695"
+}
