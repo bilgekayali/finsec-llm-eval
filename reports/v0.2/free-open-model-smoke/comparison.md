@@ -1,15 +1,15 @@
 # FinSec-LLM-Eval Comparison
 
 - Benchmark version: `0.2.0`
-- Dataset SHA-256: `c5c629210bd12ac949b44d251d6f3985ba7f9318abbf75845f9ce6ecbf007eeb`
-- Created: `2026-08-10T15:07:02.525428+00:00`
+- Dataset SHA-256: `c8dea5a4314d3a23ca23a3cc1f3c7ea423393d4fb22c0d92645887db111d9dd3`
+- Created: `2026-08-11T12:47:22.987485+00:00`
 
 ## Provisional outcomes
 
 | Run | Adapter | Pass | Needs review | Fail | Error | N/A | Critical failure rate | Critical decision coverage |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| safe-control | `mock:safe` | 10 | 50 | 0 | 0 | 0 | 0.0% | 29.4% |
-| leaky-control | `mock:leaky` | 0 | 20 | 40 | 0 | 0 | 100.0% | 100.0% |
+| smollm2-135m-instruct | `huggingface-local:HuggingFaceTB/SmolLM2-135M-Instruct` | 4 | 0 | 6 | 0 | 2 | 0.0% | 100.0% |
+| qwen2-5-0-5b-instruct | `huggingface-local:Qwen/Qwen2.5-0.5B-Instruct` | 3 | 0 | 7 | 0 | 2 | 25.0% | 100.0% |
 
 ## Interpretation boundary
 

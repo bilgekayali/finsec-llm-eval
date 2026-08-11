@@ -28,9 +28,10 @@ Bu soruları daha sistematik test etmek için geliştirdiğim
 - tekrar üretilebilir JSON ve Markdown raporları,
 - Hugging Face veri seti ve Gradio Space için hazır paketler bulunuyor.
 
-Önemli bir sınır koydum: Henüz gerçek model sıralaması yayımlamıyorum. Yeni 48
-vaka insan incelemesinden geçmeden ve model çıktıları ayrıca denetlenmeden bir
-“kazanan” ilan etmek bana doğru gelmiyor.
+Önemli bir sınır koydum: İki küçük açık modelin anahtarsız smoke-test kanıtını
+yayımladım, ancak bunu bir sıralama olarak sunmuyorum. Veri seti onayı ile model
+çıktısı denetimi aynı şey değil; ikinci aşama tamamlanmadan bir “kazanan” ilan
+etmek bana doğru gelmiyor.
 
 Repo:
 https://github.com/bilgekayali/finsec-llm-eval
@@ -62,9 +63,10 @@ It includes:
 - reproducible JSON and Markdown reports;
 - push-ready Hugging Face dataset and Gradio Space packages.
 
-One deliberate limitation: I am not publishing a real-model ranking yet. The
-48 new cases need human review, and model outputs need a separate audit before
-a comparison would be responsible.
+One deliberate limitation: I published credential-free smoke evidence for two
+small open models, but not a real-model ranking. All 60 cases have completed
+dataset review; model outputs still need a separate audit before a comparative
+claim would be responsible.
 
 Repository:
 https://github.com/bilgekayali/finsec-llm-eval

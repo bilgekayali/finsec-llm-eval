@@ -6,6 +6,11 @@
 **Human approval status:** Not granted  
 **Dataset SHA-256 after corrections:** `988a4e4b7b2ecf8c9c229a3a6cfd7edf912fc44753d04426a37032de6800fa83`
 
+> **Historical record:** This document preserves the pre-review state from
+> 2026-08-03. Attributed project-owner review of all 48 candidate cases was
+> completed by 2026-08-10; the current status is recorded in
+> [`REVIEW_WORKSHEET_v0.2.md`](REVIEW_WORKSHEET_v0.2.md).
+
 ## Claim boundary
 
 This document records an AI-assisted quality review. It is not independent

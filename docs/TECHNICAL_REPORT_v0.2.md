@@ -2,6 +2,7 @@
 
 **Status:** release candidate  
 **Date:** 2026-07-31  
+**Review update:** 2026-08-10
 **Maintainer:** Bilge Kayalı  
 **Repository:** <https://github.com/bilgekayali/finsec-llm-eval>
 
@@ -18,10 +19,11 @@ English and Turkish cases. It also adds remote and local model adapters,
 credential-free comparison configuration, reproducible manifests, a
 Hugging Face dataset package, and a self-contained Gradio review Space.
 
-This version deliberately does **not** publish a real-model ranking. The 48 new
-cases require human bilingual/domain review, and any live model output requires
-separate adjudication. That distinction is part of the benchmark's control
-design, not an administrative footnote.
+This version deliberately does **not** publish a real-model ranking. It does
+preserve a credential-free, provisional smoke run for two pinned open models
+on the v0.1 seed. All 48 new cases completed attributed project-owner review by
+2026-08-10, but model outputs still require separate adjudication. Dataset
+review and output review are distinct controls.
 
 ## Research question
 
@@ -125,12 +127,10 @@ category. Required source IDs and allowed tools must exist in the case setup.
 
 | Status | Cases | Meaning |
 |---|---:|---|
-| Approved | 12 | Original v0.1 seed cases approved by the project owner |
-| Draft | 48 | New v0.2 cases awaiting bilingual/domain review |
+| Approved | 60 | Twelve seed cases plus 48 v0.2 cases approved by the project owner |
 
-The repository may publish draft cases for transparent development. It must
-not describe the complete 60-case set as reviewed until the provenance fields
-and review worksheet contain real reviewer decisions.
+The provenance fields and attributed review worksheet record completion of
+dataset review. This status does not adjudicate a model's response to any case.
 
 ## Adapter architecture
 
@@ -256,12 +256,23 @@ The committed reference runs are controls, not models.
 
 | Adapter | Pass | Needs review | Fail | Critical failure rate | Purpose |
 |---|---:|---:|---:|---:|---|
-| `mock:safe` | 30 | 30 | 0 | 0% | Verify safe deterministic paths and unresolved semantics |
-| `mock:leaky` | 0 | 0 | 60 | 100% | Verify that leaks and unauthorized tool proposals are visible |
+| `mock:safe` | 10 | 50 | 0 | 0% | Verify safe deterministic paths and unresolved semantics |
+| `mock:leaky` | 0 | 20 | 40 | 100% | Verify deterministic failures without auto-judging semantic cases |
 
-No real-model result is included in this report. Publishing a number without a
-completed provider run and human audit would create more reputational risk than
-value.
+### Provisional open-model smoke
+
+The repository also preserves one credential-free CPU smoke run against the
+approved 12-case v0.1 seed:
+
+| Model | Pass | Fail | N/A | Critical failure rate |
+|---|---:|---:|---:|---:|
+| SmolLM2-135M-Instruct | 4 | 6 | 2 | 0% |
+| Qwen2.5-0.5B-Instruct | 3 | 7 | 2 | 25% |
+
+The two N/A cases require tool behavior that the text-only adapters do not
+support. The reports are marked `provisional_unadjudicated`. Publishing these
+raw deterministic outcomes improves reproducibility; it does not complete the
+human audit or justify a winner claim.
 
 ## Hugging Face release design
 
@@ -280,14 +291,16 @@ model call.
 
 ## Limitations
 
-- Forty-eight cases lack recorded human approval.
+- Dataset review is attributed to the project owner; independent bilingual
+  difficulty calibration remains outstanding.
 - The domain emphasis is investment banking and capital markets.
 - Language difficulty and cultural equivalence are not calibrated.
 - Many factuality, escalation, and confidence failures require human judgment.
 - Substring checks can miss paraphrases and can produce false positives.
 - Tool schemas are intentionally minimal and do not model every production
   authorization state.
-- No live model, provider, cost, or latency comparison is published.
+- The smoke run is not an audited model ranking, hosted-provider comparison, or
+  cost study; its latency reflects one standard CPU runner only.
 - Synthetic results do not estimate production incident rates.
 
 ## Conflicts and claims
@@ -302,6 +315,8 @@ absence of financial risk.
 
 ## Release decision
 
-The code, draft data, control reports, and Hugging Face packages are suitable
-for open development. A public real-model comparison is **not release-ready**
-until the review and live-run gates above are complete.
+The code, reviewed synthetic data, control reports, provisional smoke evidence,
+and Hugging Face packages are suitable for open development. The dataset
+release-ready gate passes. An audited real-model comparison remains **not
+release-ready** until model outputs complete adjudication, second-review, and
+audit gates above.

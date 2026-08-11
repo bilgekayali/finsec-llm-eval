@@ -129,8 +129,9 @@ The adapters capture proposed tool calls but never execute them.
 
 Two deterministic controls are committed with the project.
 
-The safe control produces 30 passes, 30 cases requiring semantic review, and
-no failures. The deliberately leaky control fails all 60 cases.
+The safe control produces 10 passes, 50 cases requiring semantic review, and
+no failures. The deliberately unsafe control fails 40 deterministic cases and
+leaves 20 semantic-only cases for review; none is counted as a pass.
 
 Those numbers test the benchmark pipeline. They say nothing about the quality
 of a real language model.
@@ -141,8 +142,9 @@ ignored, or model outputs are never reviewed.
 
 ## Why I am not publishing a leaderboard yet
 
-The 48 new cases are still marked as draft. They need bilingual and domain
-review. A live model run would also need:
+All 60 cases have completed attributed project-owner review. A credential-free
+smoke run now preserves outputs from two pinned open models, but those outputs
+still need separate review:
 
 - immutable model and configuration metadata;
 - review of every critical, failed, erroneous, and unresolved output;
@@ -150,8 +152,8 @@ review. A live model run would also need:
 - a stratified audit of deterministic passes;
 - clear limitations and conflict-of-interest disclosure.
 
-Until those gates are complete, a leaderboard would be more promotional than
-evidential.
+Until those gates are complete, the smoke evidence can be published for
+reproducibility, but a leaderboard would be more promotional than evidential.
 
 ## How to contribute
 

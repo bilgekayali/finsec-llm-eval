@@ -1,8 +1,8 @@
 # v0.2 Dataset Review Worksheet
 
-This worksheet covers the 48 cases added after the approved v0.1 seed. Do not
-change a case's provenance from `draft` until a real reviewer completes the
-checks below and records a decision.
+This worksheet covers the 48 cases added after the approved v0.1 seed. All 48
+completed attributed project-owner review by 2026-08-10. Dataset approval is
+separate from model-output adjudication.
 
 ## AI-assisted pre-review
 
@@ -55,30 +55,30 @@ Decision values: `approved`, `changes_requested`, or `rejected`.
 | EN-TU-003 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; synthetic payment details, verification sequencing, and safe-next-step rubrics approved after final review. |
 | EN-TU-004 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; metadata-only preview and authorization, minimization, and escalation rubrics approved after final review. |
 | EN-TU-005 | en | Tool authorization | Bilge Kayalı | 2026-08-05 | approved | Initially `changes_requested`; synthetic order data and document-trust, authorization, and safe-next-step rubrics approved after final review. |
-| TR-FR-002 | tr | Financial/regulatory factuality |  |  |  |  |
-| TR-FR-003 | tr | Financial/regulatory factuality |  |  |  |  |
-| TR-FR-004 | tr | Financial/regulatory factuality |  |  |  |  |
-| TR-FR-005 | tr | Financial/regulatory factuality |  |  |  |  |
-| EN-FR-002 | en | Financial/regulatory factuality |  |  |  |  |
-| EN-FR-003 | en | Financial/regulatory factuality |  |  |  |  |
-| EN-FR-004 | en | Financial/regulatory factuality |  |  |  |  |
-| EN-FR-005 | en | Financial/regulatory factuality |  |  |  |  |
-| TR-HE-002 | tr | Human escalation |  |  |  |  |
-| TR-HE-003 | tr | Human escalation |  |  |  |  |
-| TR-HE-004 | tr | Human escalation |  |  |  |  |
-| TR-HE-005 | tr | Human escalation |  |  |  |  |
-| EN-HE-002 | en | Human escalation |  |  |  |  |
-| EN-HE-003 | en | Human escalation |  |  |  |  |
-| EN-HE-004 | en | Human escalation |  |  |  |  |
-| EN-HE-005 | en | Human escalation |  |  |  |  |
-| TR-CC-002 | tr | Citation/confidence |  |  |  |  |
-| TR-CC-003 | tr | Citation/confidence |  |  |  |  |
-| TR-CC-004 | tr | Citation/confidence |  |  |  |  |
-| TR-CC-005 | tr | Citation/confidence |  |  |  |  |
-| EN-CC-002 | en | Citation/confidence |  |  |  |  |
-| EN-CC-003 | en | Citation/confidence |  |  |  |  |
-| EN-CC-004 | en | Citation/confidence |  |  |  |  |
-| EN-CC-005 | en | Citation/confidence |  |  |  |  |
+| TR-FR-002 | tr | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Initially `changes_requested`; realistic non-directive note plus source-authenticity, scope/effective-date, and escalation rubrics approved. |
+| TR-FR-003 | tr | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Initially `changes_requested`; document identity, ownership, approval, effective-date, conflict, and escalation controls approved. |
+| TR-FR-004 | tr | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Naturalized tax-guarantee scenario with fact/jurisdiction and qualified-handoff rubrics approved. |
+| TR-FR-005 | tr | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Settlement scope, source status, and authoritative-verification rubrics approved. |
+| EN-FR-002 | en | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Initially `changes_requested`; realistic non-directive note plus source-authenticity, scope/effective-date, and escalation rubrics approved. |
+| EN-FR-003 | en | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Initially `changes_requested`; document identity, ownership, approval, effective-date, conflict, and escalation controls approved. |
+| EN-FR-004 | en | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Tax-guarantee scenario with fact/jurisdiction and qualified-handoff rubrics approved. |
+| EN-FR-005 | en | Financial/regulatory factuality | Bilge Kayalı | 2026-08-10 | approved | Settlement scope, source status, and authoritative-verification rubrics approved. |
+| TR-HE-002 | tr | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Neutral tools plus payment containment, evidence-specificity, and authorized-escalation rubrics approved. |
+| TR-HE-003 | tr | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Procedural fairness, evidence preservation, confidentiality, and investigation handoff approved. |
+| TR-HE-004 | tr | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Neutral tools plus halt-control integrity, verification sequence, and market-operations escalation approved. |
+| TR-HE-005 | tr | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Identity uncertainty, disposition control, and Compliance handoff approved. |
+| EN-HE-002 | en | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Neutral tools plus payment containment, evidence-specificity, and authorized-escalation rubrics approved. |
+| EN-HE-003 | en | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Procedural fairness, evidence preservation, confidentiality, and investigation handoff approved. |
+| EN-HE-004 | en | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Neutral tools plus halt-control integrity, verification sequence, and market-operations escalation approved. |
+| EN-HE-005 | en | Human escalation | Bilge Kayalı | 2026-08-10 | approved | Identity uncertainty, disposition control, and Compliance handoff approved. |
+| TR-CC-002 | tr | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Temporal calibration, historical claim support, and precise citation rubrics approved. |
+| TR-CC-003 | tr | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Source-conflict disclosure, evidence weighting, and citation fidelity approved. |
+| TR-CC-004 | tr | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Useful abstention, confidence calibration, and evidence-request rubrics approved. |
+| TR-CC-005 | tr | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Citation entailment, numeric-claim control, and evidence-path rubrics approved. |
+| EN-CC-002 | en | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Temporal calibration, historical claim support, and precise citation rubrics approved. |
+| EN-CC-003 | en | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Source-conflict disclosure, evidence weighting, and citation fidelity approved. |
+| EN-CC-004 | en | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Useful abstention, confidence calibration, and evidence-request rubrics approved. |
+| EN-CC-005 | en | Citation/confidence | Bilge Kayalı | 2026-08-10 | approved | Citation entailment, numeric-claim control, and evidence-path rubrics approved. |
 
 ## Prompt-injection batch status
 
@@ -105,9 +105,19 @@ authorization candidates on 2026-08-05. All eight received
 confirmed the final content of all eight cases on the same date. All eight are
 now approved; the remaining 24 v0.2 candidates retain `draft` status.
 
+## Final semantic batch status
+
+Bilge Kayalı approved the remaining 24 English and Turkish cases on
+2026-08-10 after the requested financial/regulatory corrections and a final
+quality pass across human-escalation and citation/confidence cases. Fragile
+required-keyword checks were removed from all 24 semantic cases. The final
+cases use explicit evidence-based rubrics, realistic synthetic document
+metadata, neutral localized tools, and concrete verification or escalation
+paths. All 60 dataset records are now approved.
+
 ## Completion rule
 
-When all decisions are approved:
+The completed review followed this rule:
 
 1. apply requested edits;
 2. update each case's provenance in the dataset source;

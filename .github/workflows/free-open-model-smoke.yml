@@ -1,0 +1,242 @@
+name: Free open-model smoke comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/complete-v0-2-review
+    paths:
+      - .github/workflows/free-open-model-smoke.yml
+      - configs/comparison.free-open-model-smoke.json
+      - datasets/v0.1/cases.jsonl
+      - src/finsec_eval/**
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finsec-free-open-model-smoke
+  cancel-in-progress: true
+
+env:
+  HF_HUB_DISABLE_TELEMETRY: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  TRANSFORMERS_VERBOSITY: error
+
+jobs:
+  compare:
+    name: SmolLM2 135M vs Qwen2.5 0.5B
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned CPU runtime
+        run: |
+          python -m pip install \
+            --index-url https://download.pytorch.org/whl/cpu \
+            "torch==2.6.0"
+          python -m pip install -e . "transformers==4.48.3"
+
+      - name: Enforce credential-free open-model boundary
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          from huggingface_hub import hf_hub_download
+
+          path = Path("configs/comparison.free-open-model-smoke.json")
+          config = json.loads(path.read_text(encoding="utf-8"))
+          runs = config.get("runs", [])
+          expected_models = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct",
+              "Qwen/Qwen2.5-0.5B-Instruct",
+          }
+          expected_revisions = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct": (
+                  "75fd0ae5b521241aac18793eb0d6cb3598d86055"
+              ),
+              "Qwen/Qwen2.5-0.5B-Instruct": (
+                  "7ae557604adf67be50417f59c2c2f167def9a775"
+              ),
+          }
+          expected_model_types = {
+              "HuggingFaceTB/SmolLM2-135M-Instruct": "llama",
+              "Qwen/Qwen2.5-0.5B-Instruct": "qwen2",
+          }
+
+          if len(runs) != 2:
+              raise SystemExit("Expected exactly two open-model runs.")
+          if {run.get("adapter") for run in runs} != {"huggingface_local"}:
+              raise SystemExit("Only the local Hugging Face adapter is allowed.")
+          if {run.get("model") for run in runs} != expected_models:
+              raise SystemExit("Unexpected model in the smoke comparison.")
+          if any(
+              run.get("revision") != expected_revisions[run["model"]]
+              for run in runs
+          ):
+              raise SystemExit("Unexpected model revision in the smoke comparison.")
+          if any(run.get("device") != "cpu" for run in runs):
+              raise SystemExit("Only the standard CPU runner is allowed.")
+          if any(run.get("temperature") != 0 for run in runs):
+              raise SystemExit("Smoke runs must be deterministic.")
+          if any(run.get("max_new_tokens", 0) > 96 for run in runs):
+              raise SystemExit("Generation limit exceeds the reviewed boundary.")
+          if any(
+              not re.fullmatch(r"[0-9a-f]{40}", str(run.get("revision", "")))
+              for run in runs
+          ):
+              raise SystemExit("Every model revision must be an immutable commit.")
+          if any("api_key" in key.lower() for run in runs for key in run):
+              raise SystemExit("API-key fields are prohibited.")
+
+          for run in runs:
+              model_config_path = hf_hub_download(
+                  repo_id=run["model"],
+                  filename="config.json",
+                  revision=run["revision"],
+              )
+              model_config = json.loads(
+                  Path(model_config_path).read_text(encoding="utf-8")
+              )
+              if model_config.get("model_type") != expected_model_types[run["model"]]:
+                  raise SystemExit(
+                      f"Unexpected model_type for {run['model']}."
+                  )
+
+          print(
+              "Boundary passed: two pinned public models with verified "
+              "config metadata, CPU only, no API key."
+          )
+          PY
+
+      - name: Validate reviewed datasets
+        run: |
+          python -m unittest discover -s tests -v
+          finsec-eval validate --dataset datasets/v0.1/cases.jsonl
+          finsec-eval validate \
+            --dataset datasets/v0.2/cases.jsonl \
+            --release-ready
+
+      - name: Run real open-model smoke comparison
+        run: |
+          finsec-eval compare \
+            --dataset datasets/v0.1/cases.jsonl \
+            --config configs/comparison.free-open-model-smoke.json \
+            --output-dir reports/v0.2/free-open-model-smoke \
+            --source-revision "$GITHUB_SHA"
+
+      - name: Verify and expose review evidence
+        run: |
+          test -s reports/v0.2/free-open-model-smoke/comparison.json
+          test -s reports/v0.2/free-open-model-smoke/comparison.md
+          {
+            echo "## FinSec free open-model smoke comparison"
+            echo
+            echo "- Paid model/API calls: **none**"
+            echo "- Credentials or repository secrets: **none**"
+            echo "- Runner: standard public-repository CPU runner"
+            echo "- Dataset: approved 12-case v0.1 seed"
+            echo "- Tool-using cases: **not applicable** for this text-only adapter"
+            echo "- Status: **provisional; model outputs are not human-adjudicated**"
+            echo "- Source revision: \`$GITHUB_SHA\`"
+            echo
+            cat reports/v0.2/free-open-model-smoke/comparison.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "FINSEC_SMOKE_EVIDENCE_BEGIN"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("reports/v0.2/free-open-model-smoke")
+          comparison = json.loads(
+              (root / "comparison.json").read_text(encoding="utf-8")
+          )
+          evidence = {
+              "status": "provisional_unadjudicated",
+              "claim_boundary": (
+                  "A credential-free smoke comparison, not a leaderboard, "
+                  "compliance claim, or production-safety assessment."
+              ),
+              "comparison": comparison,
+              "reports": [],
+          }
+          for run in comparison["runs"]:
+              report_path = Path(run["report_json"])
+              report = json.loads(report_path.read_text(encoding="utf-8"))
+              if report["run_manifest"]["credentials_recorded"] is not False:
+                  raise SystemExit("Credential-recording invariant failed.")
+              evidence["reports"].append(report)
+          print(json.dumps(evidence, ensure_ascii=False, sort_keys=True))
+          PY
+          echo "FINSEC_SMOKE_EVIDENCE_END"
+
+      - name: Publish evidence or a failure status to the source branch
+        if: always() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          mkdir -p reports/v0.2/free-open-model-smoke
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          destination = Path("reports/v0.2/free-open-model-smoke")
+          status = os.environ["JOB_STATUS"]
+          payload = {
+              "status": status,
+              "source_revision": os.environ["GITHUB_SHA"],
+              "workflow_run_id": os.environ["GITHUB_RUN_ID"],
+              "workflow_run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              "workflow_run_url": os.environ["RUN_URL"],
+              "evidence_generated": (
+                  status == "success"
+                  and (destination / "comparison.json").is_file()
+                  and (destination / "comparison.md").is_file()
+              ),
+              "claim_boundary": (
+                  "Operational run status only; successful model evidence "
+                  "remains provisional and unadjudicated."
+              ),
+          }
+          (destination / "run-status.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- reports/v0.2/free-open-model-smoke/run-status.json
+          if [ "$JOB_STATUS" = "success" ]; then
+            test -s reports/v0.2/free-open-model-smoke/comparison.json
+            test -s reports/v0.2/free-open-model-smoke/comparison.md
+            git add -- reports/v0.2/free-open-model-smoke
+          fi
+          if git diff --cached --quiet; then
+            echo "No report changes to publish."
+            exit 0
+          fi
+          if [ "$JOB_STATUS" = "success" ]; then
+            git commit -m "Publish free open-model smoke evidence"
+          else
+            git commit -m "Record failed open-model smoke run"
+          fi
+          git push \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            "HEAD:${GITHUB_REF_NAME}"

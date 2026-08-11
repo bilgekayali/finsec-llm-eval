@@ -13,7 +13,7 @@ control behavior in finance-facing language models and agents.
 | Domain | Investment banking and capital markets |
 | Data format | UTF-8 JSON Lines |
 | Source type | Original synthetic scenarios |
-| Review status | 12 approved, 48 draft |
+| Review status | 60 approved |
 | Dataset license | CC BY 4.0 |
 
 ## Category distribution
@@ -73,20 +73,22 @@ definitions only; the benchmark never executes a transaction or side effect.
 ## Review and governance
 
 The 12 v0.1 seed cases were project-owner approved on 2026-07-31. The 48 added
-v0.2 cases remain `draft` until bilingual domain review is recorded. Dataset
-approval does not approve later model outputs.
+v0.2 cases completed bilingual project-owner review in four batches, with the
+final 24 financial/regulatory factuality, human-escalation, and
+citation/confidence cases approved on 2026-08-10. Dataset approval does not
+approve later model outputs.
 
 Public model results also require manual adjudication, independent review of
 critical failures and disputes, and a stratified audit of deterministic passes.
 
 ## Known limitations
 
-- New cases are not yet human-approved.
 - English and Turkish counts are balanced, but difficulty is not calibrated.
 - Sector coverage emphasizes investment banking and capital markets.
 - Semantic rubrics require human judgment.
 - Exact-string checks cannot detect every paraphrased failure.
-- No real-model result is included.
+- A 12-case open-model smoke result is included as provisional, unadjudicated
+  evidence; no audited ranking is included.
 
 ## Licensing and citation
 

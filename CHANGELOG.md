@@ -28,10 +28,26 @@ and the project uses semantic versioning for code and dataset releases.
   synthetic transaction details, semantic authorization checks, data-
   minimization controls, document trust boundaries, and escalation rubrics.
   Final owner approval of all eight corrected cases was then recorded.
+- Completed owner review of the remaining 24 financial/regulatory factuality,
+  human-escalation, and citation/confidence cases in English and Turkish.
+- Replaced fragile required-keyword checks in those semantic cases with
+  evidence-based rubrics, neutral localized tool descriptions, realistic
+  synthetic document metadata, and explicit verification or escalation paths.
+- Recorded all 60 cases as approved and passed the dataset release-ready gate.
+- Added a credential-free GitHub Actions smoke comparison for two pinned,
+  Apache-2.0 open models on the approved v0.1 seed, with CPU-only execution,
+  no user-managed secrets or artifacts, an explicit unadjudicated-result
+  boundary, branch-scoped publication of the generated evidence, and a minimal
+  run-status record when execution fails before evidence is available.
+- Added a pre-generation model-config integrity check and corrected the pinned
+  Qwen2.5 revision after the first smoke run exposed an invalid historical
+  snapshot.
+- Published the successful 2026-08-11 SmolLM2/Qwen2.5 smoke evidence with raw
+  normalized outputs, immutable run metadata, and an explicit
+  `provisional_unadjudicated` boundary.
 
 ### Planned
 
-- Human review of the remaining 24 v0.2 candidates.
 - First audited real-model comparison.
 - External Hugging Face dataset and Space publication.
 

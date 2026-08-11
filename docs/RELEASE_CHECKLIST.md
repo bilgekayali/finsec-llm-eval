@@ -12,18 +12,18 @@
 - [x] Test remote adapter contracts without credentials.
 - [x] Test local and recorded adapters.
 - [x] Generate mock-control comparison reports.
-- [ ] Record human review of the 48 new cases.
-- [ ] Pass `finsec-eval validate --release-ready`.
+- [x] Record human review of the 48 new cases.
+- [x] Pass `finsec-eval validate --release-ready`.
 
 ## External model comparison
 
-- [ ] Select the first model/provider and record the reason.
-- [ ] Run from an immutable source revision.
-- [ ] Preserve raw normalized outputs and report hashes.
+- [x] Select the first models and record the credential-free CPU-smoke reason.
+- [x] Run from an immutable source revision.
+- [x] Preserve raw normalized outputs and report hashes.
 - [ ] Review every critical, failed, erroneous, and unresolved case.
 - [ ] Obtain second review for critical failures and disputes.
 - [ ] Audit at least 20% of remaining deterministic passes by language/category.
-- [ ] Publish limitations and conflicts with the result.
+- [x] Publish limitations and conflicts with the provisional result.
 
 ## Hugging Face
 
