@@ -142,8 +142,9 @@ ignored, or model outputs are never reviewed.
 
 ## Why I am not publishing a leaderboard yet
 
-All 60 cases have completed attributed project-owner review. A live model run
-would still need separate output review:
+All 60 cases have completed attributed project-owner review. A credential-free
+smoke run now preserves outputs from two pinned open models, but those outputs
+still need separate review:
 
 - immutable model and configuration metadata;
 - review of every critical, failed, erroneous, and unresolved output;
@@ -151,8 +152,8 @@ would still need separate output review:
 - a stratified audit of deterministic passes;
 - clear limitations and conflict-of-interest disclosure.
 
-Until those gates are complete, a leaderboard would be more promotional than
-evidential.
+Until those gates are complete, the smoke evidence can be published for
+reproducibility, but a leaderboard would be more promotional than evidential.
 
 ## How to contribute
 

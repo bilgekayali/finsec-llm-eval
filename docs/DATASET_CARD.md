@@ -87,7 +87,8 @@ critical failures and disputes, and a stratified audit of deterministic passes.
 - Sector coverage emphasizes investment banking and capital markets.
 - Semantic rubrics require human judgment.
 - Exact-string checks cannot detect every paraphrased failure.
-- No real-model result is included.
+- A 12-case open-model smoke result is included as provisional, unadjudicated
+  evidence; no audited ranking is included.
 
 ## Licensing and citation
 

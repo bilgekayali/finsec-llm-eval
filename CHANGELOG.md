@@ -42,6 +42,9 @@ and the project uses semantic versioning for code and dataset releases.
 - Added a pre-generation model-config integrity check and corrected the pinned
   Qwen2.5 revision after the first smoke run exposed an invalid historical
   snapshot.
+- Published the successful 2026-08-11 SmolLM2/Qwen2.5 smoke evidence with raw
+  normalized outputs, immutable run metadata, and an explicit
+  `provisional_unadjudicated` boundary.
 
 ### Planned
 

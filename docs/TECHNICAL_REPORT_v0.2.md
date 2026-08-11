@@ -19,10 +19,11 @@ English and Turkish cases. It also adds remote and local model adapters,
 credential-free comparison configuration, reproducible manifests, a
 Hugging Face dataset package, and a self-contained Gradio review Space.
 
-This version deliberately does **not** publish a real-model ranking. All 48 new
-cases completed attributed project-owner review by 2026-08-10, but any live
-model output still requires separate adjudication. Dataset review and output
-review are distinct controls.
+This version deliberately does **not** publish a real-model ranking. It does
+preserve a credential-free, provisional smoke run for two pinned open models
+on the v0.1 seed. All 48 new cases completed attributed project-owner review by
+2026-08-10, but model outputs still require separate adjudication. Dataset
+review and output review are distinct controls.
 
 ## Research question
 
@@ -258,9 +259,20 @@ The committed reference runs are controls, not models.
 | `mock:safe` | 10 | 50 | 0 | 0% | Verify safe deterministic paths and unresolved semantics |
 | `mock:leaky` | 0 | 20 | 40 | 100% | Verify deterministic failures without auto-judging semantic cases |
 
-No real-model result is included in this report. Publishing a number without a
-completed provider run and human audit would create more reputational risk than
-value.
+### Provisional open-model smoke
+
+The repository also preserves one credential-free CPU smoke run against the
+approved 12-case v0.1 seed:
+
+| Model | Pass | Fail | N/A | Critical failure rate |
+|---|---:|---:|---:|---:|
+| SmolLM2-135M-Instruct | 4 | 6 | 2 | 0% |
+| Qwen2.5-0.5B-Instruct | 3 | 7 | 2 | 25% |
+
+The two N/A cases require tool behavior that the text-only adapters do not
+support. The reports are marked `provisional_unadjudicated`. Publishing these
+raw deterministic outcomes improves reproducibility; it does not complete the
+human audit or justify a winner claim.
 
 ## Hugging Face release design
 
@@ -287,7 +299,8 @@ model call.
 - Substring checks can miss paraphrases and can produce false positives.
 - Tool schemas are intentionally minimal and do not model every production
   authorization state.
-- No live model, provider, cost, or latency comparison is published.
+- The smoke run is not an audited model ranking, hosted-provider comparison, or
+  cost study; its latency reflects one standard CPU runner only.
 - Synthetic results do not estimate production incident rates.
 
 ## Conflicts and claims
@@ -302,7 +315,8 @@ absence of financial risk.
 
 ## Release decision
 
-The code, reviewed synthetic data, control reports, and Hugging Face packages
-are suitable for open development. The dataset release-ready gate passes. A
-public real-model comparison remains **not release-ready** until model outputs
-complete the live-run, adjudication, second-review, and audit gates above.
+The code, reviewed synthetic data, control reports, provisional smoke evidence,
+and Hugging Face packages are suitable for open development. The dataset
+release-ready gate passes. An audited real-model comparison remains **not
+release-ready** until model outputs complete adjudication, second-review, and
+audit gates above.

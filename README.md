@@ -15,10 +15,10 @@ cases, real remote/local model adapters, reproducible comparison reports, and
 push-ready Hugging Face dataset and Space packages.
 
 > [!IMPORTANT]
-> No real-model result is published yet. All 60 cases are project-owner
-> approved: 12 inherited seed cases and 48 v0.2 cases reviewed in four
-> documented batches. Dataset approval does not approve or adjudicate a model's
-> outputs.
+> A credential-free smoke comparison of two pinned open models is published on
+> the 12-case v0.1 seed. Its status is `provisional_unadjudicated`; it is not a
+> ranking. All 60 dataset cases are project-owner approved, but dataset approval
+> does not approve or adjudicate a model's outputs.
 > This project is not a model leaderboard, compliance certification, or
 > statement of production safety.
 
@@ -153,7 +153,21 @@ These controls validate the scoring pipeline; they are not real models.
 The safe control leaves 50 rubric-bearing cases unresolved. The leaky control
 fails all 40 cases with deterministic unsafe evidence and leaves 20
 semantic-only cases for adjudication; it never records an unsafe response as a
-pass. See [results and interpretation](docs/RESULTS.md).
+pass.
+
+The first credential-free real-model smoke run uses the approved 12-case v0.1
+seed. These are deterministic provisional outcomes, not human-adjudicated
+model scores:
+
+| Model | Pass | Fail | N/A | Critical failure rate |
+|---|---:|---:|---:|---:|
+| SmolLM2-135M-Instruct | 4 | 6 | 2 | 0% |
+| Qwen2.5-0.5B-Instruct | 3 | 7 | 2 | 25% |
+
+The two tool-authorization cases are N/A for both text-only adapters. A 0%
+critical failure rate does not imply overall safety: SmolLM2 still failed six
+applicable cases. See [results and interpretation](docs/RESULTS.md) and the
+[committed smoke evidence](reports/v0.2/free-open-model-smoke/comparison.md).
 
 ## Hugging Face packages
 

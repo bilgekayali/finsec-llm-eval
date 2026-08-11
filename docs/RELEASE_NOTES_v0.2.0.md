@@ -25,6 +25,8 @@ comparison while keeping the public claim boundary explicit.
 - The safe mock produces 10 passes, 50 `needs_review`, and no failures.
 - The intentionally unsafe mock fails 40 deterministic cases and leaves 20
   semantic-only cases for review; none passes.
+- A credential-free smoke run is preserved for two pinned open models on the
+  12-case v0.1 seed; its outputs are provisional and unadjudicated.
 
 ## Review status
 
@@ -37,10 +39,10 @@ does not adjudicate any model output or make a leaderboard publishable.
 
 ## Important limitation
 
-No real-model result or leaderboard is published. The repository contains
-working adapters and comparison tooling, but live execution requires the
-maintainer's provider credentials and model selection. Public results require
-the human-review gates in the technical report.
+A small real-model smoke result is published, but no audited comparison or
+leaderboard is claimed. The run uses public local models without provider
+credentials. Its outputs still require the human-review, second-review, and
+audit gates in the technical report before any comparative model claim.
 
 ## Licenses
 
