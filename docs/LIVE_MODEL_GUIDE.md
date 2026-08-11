@@ -136,7 +136,9 @@ reports back to its source branch. Checkout credentials are not persisted; the
 short-lived workflow token is exposed only to the final publication step. It
 deliberately uploads no artifact. Any output remains a provisional smoke result
 until the human-review procedure in section 8 is completed; the workflow cannot
-declare a winner.
+declare a winner. The final step always publishes `run-status.json`: successful
+runs include the generated evidence, while failed runs publish only operational
+status and a direct workflow-run URL for diagnosis.
 
 ## 6. Run a controlled OpenAI-compatible endpoint
 

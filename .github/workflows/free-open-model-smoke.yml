@@ -147,19 +147,60 @@ jobs:
           PY
           echo "FINSEC_SMOKE_EVIDENCE_END"
 
-      - name: Publish generated evidence to the source branch
-        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+      - name: Publish evidence or a failure status to the source branch
+        if: always() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
         env:
           GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          mkdir -p reports/v0.2/free-open-model-smoke
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          destination = Path("reports/v0.2/free-open-model-smoke")
+          status = os.environ["JOB_STATUS"]
+          payload = {
+              "status": status,
+              "source_revision": os.environ["GITHUB_SHA"],
+              "workflow_run_id": os.environ["GITHUB_RUN_ID"],
+              "workflow_run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              "workflow_run_url": os.environ["RUN_URL"],
+              "evidence_generated": (
+                  status == "success"
+                  and (destination / "comparison.json").is_file()
+                  and (destination / "comparison.md").is_file()
+              ),
+              "claim_boundary": (
+                  "Operational run status only; successful model evidence "
+                  "remains provisional and unadjudicated."
+              ),
+          }
+          (destination / "run-status.json").write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- reports/v0.2/free-open-model-smoke
+          git add -- reports/v0.2/free-open-model-smoke/run-status.json
+          if [ "$JOB_STATUS" = "success" ]; then
+            test -s reports/v0.2/free-open-model-smoke/comparison.json
+            test -s reports/v0.2/free-open-model-smoke/comparison.md
+            git add -- reports/v0.2/free-open-model-smoke
+          fi
           if git diff --cached --quiet; then
             echo "No report changes to publish."
             exit 0
           fi
-          git commit -m "Publish free open-model smoke evidence"
+          if [ "$JOB_STATUS" = "success" ]; then
+            git commit -m "Publish free open-model smoke evidence"
+          else
+            git commit -m "Record failed open-model smoke run"
+          fi
           git push \
             "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
             "HEAD:${GITHUB_REF_NAME}"

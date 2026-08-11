@@ -49,6 +49,9 @@ class FreeOpenModelWorkflowSafetyTests(unittest.TestCase):
         self.assertIn(
             "git add -- reports/v0.2/free-open-model-smoke", text
         )
+        self.assertIn("if: always()", text)
+        self.assertIn("run-status.json", text)
+        self.assertIn("evidence_generated", text)
         self.assertEqual(text.count("github.token"), 1)
         self.assertNotIn(
             "\n      - reports/v0.2/free-open-model-smoke", text
