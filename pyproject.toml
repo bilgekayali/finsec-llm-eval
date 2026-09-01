@@ -37,7 +37,7 @@ dependencies = [
 
 [project.optional-dependencies]
 openai = [
-  "openai>=1.50,<3",
+  "openai>=1.50,<4",
 ]
 local = [
   "torch>=2.2",
