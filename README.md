@@ -22,16 +22,6 @@ push-ready Hugging Face dataset and Space packages.
 > This project is not a model leaderboard, compliance certification, or
 > statement of production safety.
 
-## Executive overview — 30 seconds
-
-**Problem:** Financial-services LLM and agent deployments need repeatable checks for instruction injection, sensitive-data disclosure, tool authorisation and escalation.
-
-**Reference solution:** A bilingual synthetic benchmark with explicit case schemas, model adapters, deterministic checks, human-review gates and comparison reports.
-
-**Inspect the work:** [Dataset](datasets/v0.2/cases.jsonl) · [Runner and scoring code](src/finsec_eval/) · [Automated tests](tests/) · [Results and interpretation](docs/RESULTS.md).
-
-**Status and limits:** v0.2 **release candidate**: 60 synthetic cases, 36 approved and 24 awaiting review as documented. No real-model results published; not a leaderboard, compliance certificate or production-safety claim.
-
 ## What is covered
 
 | Code | Risk area | Core control question |
